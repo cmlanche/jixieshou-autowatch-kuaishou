@@ -8,7 +8,9 @@
 2. 云数据存储（[leancloud接入](https://leancloud.cn/?source=F7TRUGR9)，强大，强推）
 3. accessible辅助服务（控件定位、手势操作）
 4. 悬浮框知识
+5. 安卓自动化脚本怎么写
 
 ### 预览效果
 
 ![small](smallshow.gif)
+
