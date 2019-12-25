@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/backImg"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="start|center"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/arrow_back" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#0d0e56"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="21dp"
+                    android:text="添加任务" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp"
+                    android:background="#fff">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include
+                            android:id="@+id/typeLayout"
+                            layout="@layout/new_task_type" />
+
+                        <LinearLayout
+                            android:id="@+id/sp"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="#e5e5ea"
+                            android:orientation="vertical"
+                            android:layout_height="1dp" />
+
+                        <include
+                            android:visibility="gone"
+                            android:id="@+id/periodLayout"
+                            layout="@layout/new_task_period" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/deleteBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="#ffffff"
+                        android:gravity="center"
+                        app:cornerRadius="30dp"
+                        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                        android:backgroundTint="@color/warning"
+                        android:text="删除" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/sureBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:textColor="#ffffff"
+                        app:cornerRadius="30dp"
+                        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="确定" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.cmlanche.activity.MainActivity"
+    android:background="@color/bg"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="34sp"
+                android:textColor="#0d0e56"
+                android:letterSpacing="0.01"
+                android:layout_marginStart="20dp"
+                android:text="机械手任务" />
+
+            <ImageView
+                android:id="@+id/info"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                android:src="@drawable/info" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#7b7c98"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/description" />
+
+        <TextView
+            android:id="@+id/deviceNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="sfsldjfl"
+            android:textSize="16sp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/newTaskCardView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="21dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            android:background="#fff">
+
+            <RelativeLayout
+                android:id="@+id/emptyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="70dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_cards" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="#472fc8"
+                        android:lineSpacingExtra="8sp"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="31dp"
+                        android:text="添加你的第一个任务" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/taskListLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/listCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginBottom="32dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp"
+                android:background="#fff">
+
+                <com.cmlanche.widget.ListViewForScrollView
+                    android:id="@+id/taskListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/startBtn"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:backgroundTint="@color/colorPrimary"
+                app:cornerRadius="30dp"
+                android:text="点我启动" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

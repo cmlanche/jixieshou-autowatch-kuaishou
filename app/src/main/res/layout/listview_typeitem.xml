@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ks_fast" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#181819"
+        android:lineSpacingExtra="8sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@id/icon"
+        android:layout_centerVertical="true"
+        tools:text="快手极速版自动刷币" />
+
+    <TextView
+        android:id="@+id/free"
+        android:text="免费"
+        android:textSize="15sp"
+        android:textColor="#7b7c98"
+        android:lineSpacingExtra="8sp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

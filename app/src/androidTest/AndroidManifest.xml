@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cmlanche.test"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="24" />
+
+    <instrumentation
+        android:label="UIA Agent"
+        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:targetPackage="com.auto.monitor"
+        android:handleProfiling="false"
+        android:functionalTest="false"/>
+    <!--<instrumentation-->
+        <!--android:label="UIA Agent"-->
+        <!--android:name="cn.testin.uiautomator.MyTestRunner"-->
+        <!--android:targetPackage="cn.testin.test"-->
+        <!--android:handleProfiling="false"-->
+        <!--android:functionalTest="false"/>-->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.REORDER_TASKS"/>
+
+    <application
+        android:debuggable="true">
+
+        <uses-library
+            android:name="android.test.runner" />
+    </application>
+</manifest>
