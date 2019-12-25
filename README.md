@@ -11,4 +11,5 @@
 
 ### 预览效果
 
-![c6d25979-4bc4-487e-ab50-e452a536de02](show.gif)
+![small](smallshow.gif)
+![big](show.gif)
