@@ -10,7 +10,9 @@
 4. 悬浮框知识
 5. 安卓自动化脚本怎么写
 
+更多请看我的这篇文章[「近 3 周开发「机械手 App」的学习、反思、总结」](https://indiehackers.net/topics/102)
+
 ### 预览效果
 
-![small](smallshow.gif)
+![small](https://indiehackers.oss-cn-beijing.aliyuncs.com/indiehackers/1xole.gif)
 
