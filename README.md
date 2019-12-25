@@ -12,5 +12,3 @@
 ### 预览效果
 
 ![small](smallshow.gif)
-
-![big](show.gif)
