@@ -4,12 +4,11 @@
 
 做这个app，我自己也收获良多，深知做一款哪怕再小的可发布的app产品，也有各种各样的需要牵扯进来的东西，研究本app你可以学到这些：
 
-1. 统计功能（友盟接入）
-2. 云数据存储（leancloud接入，强大，强推）
+1. 统计和分享功能（[友盟接入](https://www.umeng.com/)）
+2. 云数据存储（[leancloud接入](https://leancloud.cn/?source=F7TRUGR9)，强大，强推）
 3. accessible辅助服务（控件定位、手势操作）
 4. 悬浮框知识
 
 ### 预览效果
 
 ![c6d25979-4bc4-487e-ab50-e452a536de02](show.gif)
-
