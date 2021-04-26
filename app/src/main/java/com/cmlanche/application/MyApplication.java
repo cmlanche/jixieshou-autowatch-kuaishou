@@ -26,12 +26,14 @@ import com.cmlanche.floatwindow.FloatWindow;
 import com.cmlanche.floatwindow.MoveType;
 import com.cmlanche.floatwindow.PermissionListener;
 import com.cmlanche.floatwindow.ViewStateListener;
+import com.cmlanche.jixieshou.BuildConfig;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
 import com.cmlanche.model.TaskInfo;
 import com.cmlanche.scripts.TaskExecutor;
 import com.cmlanche.widget.PointView;
 import com.squareup.otto.Subscribe;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -70,6 +72,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Logger.setDebug(true);
+        CrashReport.initCrashReport(getApplicationContext(), "8aa7474c90", false);
         initUmeng();
         initLeancloud();
         SPService.init(this);
@@ -97,18 +100,18 @@ public class MyApplication extends Application {
                 break;
             case pause_byhand:
                 if(isStarted) {
-                    setFloatText("机械手已被您暂停");
+                    setFloatText("捡破烂已被您暂停");
                 }
                 break;
             case unpause_byhand:
                 if (isStarted) {
-                    setFloatText("机械手已开始");
+                    setFloatText("捡破烂已开始");
                 }
                 break;
             case pause_becauseof_not_destination_page:
                 if(isStarted) {
                     // String reason = (String) event.getData();
-                    setFloatText("非目标页面，机械手已暂停");
+                    setFloatText("非目标页面，捡破烂已暂停");
                 }
                 break;
             case refresh_time:
@@ -122,11 +125,11 @@ public class MyApplication extends Application {
                 break;
             case roots_ready:
                 TaskExecutor.getInstance().setForcePause(false);
-                setFloatText("机械手重新准备就绪");
+                setFloatText("捡破烂重新准备就绪");
                 break;
             case accessiblity_connected:
                 this.isFirstConnectAccessbilityService = true;
-                setFloatText("机械手已准备就绪，点我启动");
+                setFloatText("捡破烂已准备就绪，点我启动");
                 break;
         }
     }
@@ -141,8 +144,8 @@ public class MyApplication extends Application {
 
     private void initLeancloud() {
         try {
-            AVOSCloud.initialize("你的leancloud appid", "你的leancloud appsecret");
-            new InitTask().execute();
+            AVOSCloud.initialize("15IzPzEVyONHdh2Sv6NgaY7N-gzGzoHsz", "FSW0TSuSrQ6sHHLwY4bsIxY7");
+//            new InitTask().execute();
         } catch (Exception e) {
             Logger.e(e.getMessage(), e);
         }
@@ -231,7 +234,7 @@ public class MyApplication extends Application {
                 TaskInfo taskInfo = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
                 if (taskInfo != null && taskInfo.getAppInfos() != null && taskInfo.getAppInfos().size() > 0 &&
                         isFirstConnectAccessbilityService) {
-                    // 服务岗连接上，可以点击快速启动，不需要跳转到机械手app去启动
+                    // 服务岗连接上，可以点击快速启动，不需要跳转到捡破烂app去启动
                     isFirstConnectAccessbilityService = false;
                     startTask(taskInfo.getAppInfos());
                 } else if(isStarted) {
@@ -244,7 +247,7 @@ public class MyApplication extends Application {
                         BusManager.getBus().post(new BusEvent<>(pause_byhand));
                     }
                 } else {
-                    // 未启动状态，单击会打开机械手app
+                    // 未启动状态，单击会打开捡破烂app
                     PackageUtils.startSelf();
                 }
             }
@@ -254,7 +257,7 @@ public class MyApplication extends Application {
             @Override
             public boolean onLongClick(View v) {
                 TaskExecutor.getInstance().stop(true);
-                Toast.makeText(getApplicationContext(), "机械手已暂停", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "捡破烂已暂停", Toast.LENGTH_LONG).show();
                 PackageUtils.startSelf();
                 return false;
             }

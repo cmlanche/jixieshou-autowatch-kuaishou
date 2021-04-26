@@ -21,6 +21,7 @@ import com.cmlanche.common.SPService;
 import com.cmlanche.common.leancloud.CheckUpdateTask;
 import com.cmlanche.core.service.MyAccessbilityService;
 import com.cmlanche.core.utils.AccessibilityUtils;
+import com.cmlanche.core.utils.KuaiShouUtil;
 import com.cmlanche.floatwindow.PermissionUtil;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
@@ -37,6 +38,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
+import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton startBtn;
     private TextView descriptionView;
     private List<AppInfo> appInfos = new ArrayList<>();
+    private boolean isInstallKuaiShou = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(!checkPkgValid()) {
+                if(!isInstallKuaiShou){
+                    KuaiShouUtil.showDownLoadDialog(MainActivity.this);
                     return;
                 }
 
@@ -106,11 +111,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // 判断是否开启辅助服务
                 if (!AccessibilityUtils.isAccessibilitySettingsOn(getApplicationContext())) {
-                    Toast.makeText(getApplicationContext(), "请打开「机械手」的辅助服务", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "请打开「捡破烂」的辅助服务", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                     startActivity(intent);
                     return;
                 }
+
+
 
                 startService(new Intent(getApplicationContext(), MyAccessbilityService.class));
                 MyApplication.getAppInstance().startTask(appInfos);
@@ -126,16 +133,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        isInstallKuaiShou = KuaiShouUtil.isInstallPackage(PN_KUAI_SHOU);
     }
 
     private void initData() {
         TaskInfo taskInfo = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
         if (taskInfo == null || taskInfo.getAppInfos() == null || taskInfo.getAppInfos().isEmpty()) {
             cardView.setVisibility(View.VISIBLE);
-            fab.setVisibility(View.GONE);
+//            fab.setVisibility(View.GONE);
         } else {
             cardView.setVisibility(View.GONE);
-            fab.setVisibility(View.VISIBLE);
+//            fab.setVisibility(View.VISIBLE);
             appInfos.addAll(taskInfo.getAppInfos());
             taskListAdapter.notifyDataSetChanged();
         }
@@ -151,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             // 100是新增任务
             AppInfo appInfo = JSON.parseObject(data.getStringExtra("appInfo"), AppInfo.class);
             cardView.setVisibility(View.GONE);
-            fab.setVisibility(View.VISIBLE);
+//            fab.setVisibility(View.VISIBLE);
             appInfos.add(appInfo);
             taskListAdapter.notifyDataSetChanged();
             saveTaskList();
@@ -166,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 deleteAppInfo(appInfo);
                 if (appInfos.isEmpty()) {
                     cardView.setVisibility(View.VISIBLE);
-                    fab.setVisibility(View.GONE);
+//                    fab.setVisibility(View.GONE);
                 }
                 saveTaskList();
             } else if (resultCode == 2) {

@@ -8,8 +8,6 @@ import com.cmlanche.core.utils.StringUtil;
 import java.lang.reflect.Method;
 
 public class DeviceUtils {
-
-
     public static String getDeviceSN() {
         String serial = Build.SERIAL;
         if (!StringUtil.isEmpty(serial)) {

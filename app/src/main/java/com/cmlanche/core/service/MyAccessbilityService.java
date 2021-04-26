@@ -102,6 +102,7 @@ public class MyAccessbilityService extends AccessibilityService {
     }
 
     @Override
+
     public void onCreate() {
         super.onCreate();
         Logger.d("MyAccessbilityService on create");

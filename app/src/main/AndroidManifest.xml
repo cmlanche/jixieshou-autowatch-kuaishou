@@ -11,16 +11,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name="com.cmlanche.application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/icon"
+        android:icon="@mipmap/icon_lancher"
         android:label="@string/app_name"
         android:persistent="true"
         android:roundIcon="@drawable/icon"
@@ -89,6 +89,7 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name="com.cmlanche.floatwindow.FloatActivity" />
         <!--友盟分享结束-->
 
         <service

@@ -37,9 +37,9 @@ public class GetTaskListTask extends AsyncTask<Void, Integer, List<AppInfo>> {
                 for (AVObject obj : objects) {
                     AppInfo appInfo = new AppInfo();
                     appInfo.setName(obj.getString("name"));
-                    appInfo.setFree(obj.getBoolean("free"));
+                    appInfo.setFree(obj.getBoolean("isFree"));
                     appInfo.setPeriod(obj.getInt("period"));
-                    appInfo.setPkgName(obj.getString("pkg"));
+                    appInfo.setPkgName(obj.getString("pkgName"));
                     appInfo.setUuid(obj.getObjectId());
                     list.add(appInfo);
                 }

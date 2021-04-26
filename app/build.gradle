@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.cmlanche.jixieshou"
         minSdkVersion 22
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -65,4 +65,5 @@ dependencies {
     implementation files('libs/umeng-share-sina-simplify-6.9.6.jar')
     implementation files('libs/umeng-share-wechat-simplify-6.9.6.jar')
     implementation files('libs/umeng-shareboard-widget-6.9.6.jar')
+    implementation 'com.tencent.bugly:crashreport:2.6.6.1'
 }

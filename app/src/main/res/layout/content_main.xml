@@ -27,7 +27,7 @@
                 android:textColor="#0d0e56"
                 android:letterSpacing="0.01"
                 android:layout_marginStart="20dp"
-                android:text="机械手任务" />
+                android:text="捡破烂任务" />
 
             <ImageView
                 android:id="@+id/info"
@@ -60,7 +60,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="sfsldjfl"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
 
         <androidx.cardview.widget.CardView
@@ -149,6 +150,21 @@
                 android:backgroundTint="@color/colorPrimary"
                 app:cornerRadius="30dp"
                 android:text="点我启动" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:textSize="12sp"
+                android:textColor="#7b7c98"
+                android:lineSpacingExtra="8sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_gravity="center"
+                android:text="@string/contact" />
         </LinearLayout>
 
     </LinearLayout>

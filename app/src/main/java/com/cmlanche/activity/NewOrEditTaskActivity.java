@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.cmlanche.common.Constants;
 import com.cmlanche.core.utils.StringUtil;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
@@ -14,6 +15,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.annotation.Nullable;
+import cn.leancloud.AVObject;
 
 /**
  * 新建或编辑任务界面
@@ -105,6 +107,19 @@ public class NewOrEditTaskActivity extends BaseActivity {
             title.setText("编辑任务");
             sureBtn.setText("更新");
         }
+
+//        AVObject testObject = new AVObject("task_list");
+//        AppInfo appInfo = new AppInfo();
+//        appInfo.setName("快手极速版");
+//        appInfo.setFree(true);
+//        appInfo.setPeriod(1l);
+//        appInfo.setPkgName(Constants.pkg_kuaishou_fast);
+//        appInfo.setUuid("1111");
+//        testObject.put("name", appInfo.getName());
+//        testObject.put("isFree", appInfo.isFree());
+//        testObject.put("period", appInfo.getPeriod());
+//        testObject.put("pkgName", appInfo.getPkgName());
+//        testObject.saveInBackground().blockingSubscribe();
     }
 
     @Override
