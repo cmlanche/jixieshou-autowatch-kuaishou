@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">捡破烂</string>
-    <string name="title_activity_main">捡破烂</string>
+    <string name="app_name">捡豆子</string>
+    <string name="title_activity_main">捡豆子</string>
     <string name="accessibility_description">
-        捡破烂用于处理重复性的任务，只用来识别任务所在的App界面信息，不监听您的任何隐私。
+        捡豆子用于处理重复性的任务，只用来识别任务所在的App界面信息，不监听您的任何隐私。
     </string>
     <string name="action_settings">设置</string>
-    <string name="description">捡破烂可以简单方便的自动做重复性的任务，如自动刷快手视频,后面会更新加入刷抖音视频,微信QQ自动抢红包,自动打卡等任务。「本软件不售卖！」</string>
-    <string name="contact">现在各种极速版看视频刷金币领红包的app层出不穷，闲暇时间特别爱刷，但又没有一个好的工具，刷起来特别累，还耽误时间，基于这个想法就做了个这个app，供大家娱乐。有其他任务需求的请加QQ「626704292」联系我</string>
+    <string name="description">捡豆子可以简单方便的自动做重复性的任务，不监听您的任何隐私。可以自动刷抖音快手视频,后面会更新加入自动点赞、自动打卡、自动抢红包等任务。「纯娱乐不用于任何商业用途！」</string>
+    <string name="contact">现在各种极速版看视频刷金币领红包的app层出不穷，闲暇时间特别爱刷，但又没有一个好的工具，刷起来特别累，还耽误时间，基于这个想法就做了个这个app，供大家娱乐。有其他自动化任务想法的请加QQ「626704292」联系我</string>
     <string name="tip_vip">开通会员将「永久」享受所有VIP任务，\n敬请期待更多好玩又有价值的任务！</string>
 </resources>

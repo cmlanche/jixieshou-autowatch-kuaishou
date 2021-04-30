@@ -32,7 +32,7 @@ public class KuaiShouUtil {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                AccessibilityUtil.goToAppMarket(context);
+                AccessibilityUtil.goToAppMarket(context,Constant.PN_KUAI_SHOU);
             }
         });
         AlertDialog dialog = builder.create();

@@ -8,6 +8,8 @@ import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.ActionUtils;
 import com.cmlanche.model.AppInfo;
 
+import java.util.Random;
+
 /**
  * 快手急速版脚本
  */
@@ -34,8 +36,8 @@ public class KuaishouFastScript extends BaseScript {
             }
         }
 
-        int x = MyApplication.getAppInstance().getScreenWidth() / 2;
-        int margin = 100;
+        int x = MyApplication.getAppInstance().getScreenWidth() / 2 + (int)(Math.random()*100);
+        int margin = 100+ (int)(Math.random()*100);
         int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;
         int toY = margin;
         new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
@@ -43,12 +45,12 @@ public class KuaishouFastScript extends BaseScript {
 
     @Override
     protected int getMinSleepTime() {
-        return 10000;
+        return 5000;
     }
 
     @Override
     protected int getMaxSleepTime() {
-        return 20000;
+        return 10000;
     }
 
     @Override

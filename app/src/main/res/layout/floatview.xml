@@ -1,28 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="8dp"
     android:background="@drawable/shape_floatwindow">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/icon" />
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:src="@mipmap/icon_lancher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/tv_option"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textSize="10sp"
-        android:textColor="@color/colorPrimary"
-        android:text="@string/app_name"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="4dp"
         android:layout_gravity="center"
-        android:gravity="center" />
+        android:layout_marginStart="2dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_close"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="×"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

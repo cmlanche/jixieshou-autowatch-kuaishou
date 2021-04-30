@@ -11,7 +11,7 @@ public class PayUtils {
         PaySetting paySetting = new PaySetting();
 
         RedPackRequest redPackRequest = new RedPackRequest();
-        redPackRequest.setActivityName("捡破烂Pro服务");
+        redPackRequest.setActivityName("捡豆子Pro服务");
         redPackRequest.setAmount(100);
         redPackRequest.setBillNumber("1292063901201605150012300014");
         redPackRequest.setNumber(1);
@@ -19,7 +19,7 @@ public class PayUtils {
         redPackRequest.setRemark("测试发红包");
         redPackRequest.setWishing("恭喜发财");
         redPackRequest.setClientIp("127.0.0.1");
-        redPackRequest.setSendName("捡破烂app");
+        redPackRequest.setSendName("捡豆子app");
 
 
         RedPackResponse redPackResponse = RedPacks.with(paySetting).sendSingle(redPackRequest);

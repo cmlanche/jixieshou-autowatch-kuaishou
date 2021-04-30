@@ -64,6 +64,12 @@ public class TaskListAdapter extends BaseAdapter {
             holder.icon.setImageResource(R.drawable.dy);
         }else if (appInfo.getPkgName().equals(Constants.pkg_kuaishou)) {
             holder.icon.setImageResource(R.drawable.ks);
+        }else if (appInfo.getPkgName().equals(Constants.pkg_toutiao_fast)) {
+            holder.icon.setImageResource(R.drawable.icon_toutiao);
+        }else if (appInfo.getPkgName().equals(Constants.pkg_miaokan_fast)) {
+            holder.icon.setImageResource(R.drawable.icon_miaokan);
+        }else if (appInfo.getPkgName().equals(Constants.pkg_yingwa)) {
+            holder.icon.setImageResource(R.drawable.icon_yingwa);
         }
         holder.time.setText(String.format("%d小时", appInfo.getPeriod()));
         return view;

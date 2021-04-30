@@ -40,16 +40,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#7b7c98"
-                    android:lineSpacingExtra="8sp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:text="@string/tip_vip" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="8sp"
+                    android:text="@string/tip_vip"
+                    android:textColor="#7b7c98"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/openVIPBtn"
@@ -57,12 +58,13 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
-                    android:textColor="#fff"
                     android:backgroundTint="@color/warning"
-                    android:textAppearance="?android:attr/textAppearanceLargeInverse"
                     android:gravity="center"
+                    android:text="开通VIP"
+                    android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                    android:textColor="#fff"
                     android:textSize="14sp"
-                    android:text="开通VIP" />
+                    android:visibility="gone" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -84,16 +86,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#7b7c98"
-                    android:lineSpacingExtra="8sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="21dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:text="@string/contact" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="21dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="8sp"
+                    android:text="@string/contact"
+                    android:textColor="#7b7c98"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

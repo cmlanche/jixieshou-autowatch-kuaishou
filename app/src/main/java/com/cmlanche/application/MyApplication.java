@@ -1,7 +1,9 @@
 package com.cmlanche.application;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -20,11 +22,15 @@ import com.cmlanche.common.leancloud.InitTask;
 import com.cmlanche.core.bus.BusEvent;
 import com.cmlanche.core.bus.BusManager;
 import com.cmlanche.core.service.MyAccessbilityService;
+import com.cmlanche.core.utils.AccessibilityUtil;
+import com.cmlanche.core.utils.Constant;
 import com.cmlanche.core.utils.Logger;
+import com.cmlanche.core.utils.SFUpdaterUtils;
 import com.cmlanche.core.utils.Utils;
 import com.cmlanche.floatwindow.FloatWindow;
 import com.cmlanche.floatwindow.MoveType;
 import com.cmlanche.floatwindow.PermissionListener;
+import com.cmlanche.floatwindow.Screen;
 import com.cmlanche.floatwindow.ViewStateListener;
 import com.cmlanche.jixieshou.BuildConfig;
 import com.cmlanche.jixieshou.R;
@@ -32,6 +38,8 @@ import com.cmlanche.model.AppInfo;
 import com.cmlanche.model.TaskInfo;
 import com.cmlanche.scripts.TaskExecutor;
 import com.cmlanche.widget.PointView;
+import com.sf.appupdater.log.LogInfo;
+import com.sf.appupdater.log.LogWriter;
 import com.squareup.otto.Subscribe;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
@@ -72,11 +80,20 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Logger.setDebug(true);
-        CrashReport.initCrashReport(getApplicationContext(), "8aa7474c90", false);
+        CrashReport.initCrashReport(getApplicationContext(), "8aa7474c90", BuildConfig.DEBUG);
         initUmeng();
         initLeancloud();
         SPService.init(this);
         appInstance = this;
+
+        LogWriter logWriter = new LogWriter() {
+            @Override
+            public void write(LogInfo logInfo) {
+                Log.d("logInfo", "logInfo: " + logInfo);
+            }
+        };
+        SFUpdaterUtils.setAppUpdaterInfo(this, "f6f24f301189059dbbd1046cfc20e12e", "2e69975d7e0348009687c4cbf7bcf954", true, com.sf.appupdater.Environment.PRODUCTION, false, logWriter);
+
 
         Display display = getDisplay(getApplicationContext());
         this.screenWidth = display.getWidth();
@@ -100,18 +117,18 @@ public class MyApplication extends Application {
                 break;
             case pause_byhand:
                 if(isStarted) {
-                    setFloatText("捡破烂已被您暂停");
+                    setFloatText("捡豆子已被您暂停");
                 }
                 break;
             case unpause_byhand:
                 if (isStarted) {
-                    setFloatText("捡破烂已开始");
+                    setFloatText("捡豆子已开始");
                 }
                 break;
             case pause_becauseof_not_destination_page:
                 if(isStarted) {
                     // String reason = (String) event.getData();
-                    setFloatText("非目标页面，捡破烂已暂停");
+                    setFloatText("已暂停(非任务页面)");
                 }
                 break;
             case refresh_time:
@@ -125,11 +142,11 @@ public class MyApplication extends Application {
                 break;
             case roots_ready:
                 TaskExecutor.getInstance().setForcePause(false);
-                setFloatText("捡破烂重新准备就绪");
+                setFloatText("捡豆子重新准备就绪");
                 break;
             case accessiblity_connected:
                 this.isFirstConnectAccessbilityService = true;
-                setFloatText("捡破烂已准备就绪，点我启动");
+                setFloatText("捡豆子已准备就绪，点我启动");
                 break;
         }
     }
@@ -145,7 +162,7 @@ public class MyApplication extends Application {
     private void initLeancloud() {
         try {
             AVOSCloud.initialize("15IzPzEVyONHdh2Sv6NgaY7N-gzGzoHsz", "FSW0TSuSrQ6sHHLwY4bsIxY7");
-//            new InitTask().execute();
+            new InitTask().execute();
         } catch (Exception e) {
             Logger.e(e.getMessage(), e);
         }
@@ -204,14 +221,15 @@ public class MyApplication extends Application {
 
     public void showFloatWindow() {
         floatView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.floatview, null);
-
+        TextView tv_close = floatView.findViewById(R.id.tv_close);
+        TextView tv_option = floatView.findViewById(R.id.tv_option);
         FloatWindow
                 .with(getApplicationContext())
                 .setView(floatView)
-                .setY(0)
+                .setY(150)
                 .setX(0)
                 .setFilter(false, MainActivity.class, NewOrEditTaskActivity.class, TaskTypeListActivity.class)
-                .setMoveType(MoveType.inactive)
+                .setMoveType(MoveType.slide)
                 .setMoveStyle(500, new BounceInterpolator())
                 .setViewStateListener(mViewStateListener)
                 .setPermissionListener(new PermissionListener() {
@@ -228,13 +246,22 @@ public class MyApplication extends Application {
                 .setDesktopShow(true)
                 .build();
 
-        floatView.setOnClickListener(new View.OnClickListener() {
+        tv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);//正常退出App
+                Toast.makeText(getApplicationContext(), "退出捡豆子", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        tv_option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TaskInfo taskInfo = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
                 if (taskInfo != null && taskInfo.getAppInfos() != null && taskInfo.getAppInfos().size() > 0 &&
                         isFirstConnectAccessbilityService) {
-                    // 服务岗连接上，可以点击快速启动，不需要跳转到捡破烂app去启动
+                    // 服务岗连接上，可以点击快速启动，不需要跳转到捡豆子app去启动
                     isFirstConnectAccessbilityService = false;
                     startTask(taskInfo.getAppInfos());
                 } else if(isStarted) {
@@ -247,17 +274,17 @@ public class MyApplication extends Application {
                         BusManager.getBus().post(new BusEvent<>(pause_byhand));
                     }
                 } else {
-                    // 未启动状态，单击会打开捡破烂app
+                    // 未启动状态，单击会打开捡豆子app
                     PackageUtils.startSelf();
                 }
             }
         });
 
-        floatView.setOnLongClickListener(new View.OnLongClickListener() {
+        tv_option.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 TaskExecutor.getInstance().stop(true);
-                Toast.makeText(getApplicationContext(), "捡破烂已暂停", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "捡豆子已暂停", Toast.LENGTH_LONG).show();
                 PackageUtils.startSelf();
                 return false;
             }
@@ -266,7 +293,7 @@ public class MyApplication extends Application {
 
     private void setFloatText(String text) {
         if (floatView != null) {
-            TextView textView = floatView.findViewById(R.id.text);
+            TextView textView = floatView.findViewById(R.id.tv_option);
             textView.setText(text);
         }
     }
@@ -317,4 +344,6 @@ public class MyApplication extends Application {
         taskInfo.setAppInfos(appInfos);
         TaskExecutor.getInstance().startTask(taskInfo);
     }
+
+
 }

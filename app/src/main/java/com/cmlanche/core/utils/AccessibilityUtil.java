@@ -17,6 +17,7 @@ public class AccessibilityUtil {
     private final String TAG = this.getClass().getSimpleName();
     // 跳转到应用宝的网页版地址
     private final static String WEB_YINGYONGBAO_MARKET_URL = "https://dlc2.pconline.com.cn/download.jsp?target=0bE8eqt9XPQ6NhU6qSl";
+//    private final static String WEB_YINGYONGBAO_MARKET_URL = "https://dlc2.pconline.com.cn/download.jsp?target=0bE8eqt9XPQ6NhU6qSl";
 
     private final static String MARKET_PKG_NAME_MI = "com.xiaomi.market";
     private final static String MARKET_PKG_NAME_VIVO = "com.bbk.appstore";
@@ -39,7 +40,7 @@ public class AccessibilityUtil {
      * 跳转到渠道对应的市场，如果没有该市场，就跳转到应用宝（App或者网页版）
      * @param context
      */
-    public static void goToAppMarket(Context context) {
+    public static void goToAppMarket(Context context,String pkg) {
         try {
             // 通过设备品牌获取包名
             String pkgName = "";
@@ -59,7 +60,7 @@ public class AccessibilityUtil {
             }
 
             //查询符合条件的页面
-            Uri uri = Uri.parse("market://details?id=" + PN_KUAI_SHOU);
+            Uri uri = Uri.parse("market://details?id=" + pkg);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PackageManager pm = context.getPackageManager();

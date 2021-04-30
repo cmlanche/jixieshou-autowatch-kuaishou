@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cmlanche.common.Constants;
+import com.cmlanche.core.utils.Constant;
 import com.cmlanche.core.utils.StringUtil;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
@@ -110,11 +111,11 @@ public class NewOrEditTaskActivity extends BaseActivity {
 
 //        AVObject testObject = new AVObject("task_list");
 //        AppInfo appInfo = new AppInfo();
-//        appInfo.setName("快手极速版");
+//        appInfo.setName("影蛙视频");
 //        appInfo.setFree(true);
 //        appInfo.setPeriod(1l);
-//        appInfo.setPkgName(Constants.pkg_kuaishou_fast);
-//        appInfo.setUuid("1111");
+//        appInfo.setPkgName(Constant.PN_YING_WA);
+//        appInfo.setUuid("1114");
 //        testObject.put("name", appInfo.getName());
 //        testObject.put("isFree", appInfo.isFree());
 //        testObject.put("period", appInfo.getPeriod());

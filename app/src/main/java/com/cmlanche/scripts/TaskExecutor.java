@@ -6,6 +6,7 @@ import com.cmlanche.common.PackageUtils;
 import com.cmlanche.core.bus.BusEvent;
 import com.cmlanche.core.bus.BusManager;
 import com.cmlanche.core.bus.EventType;
+import com.cmlanche.core.utils.Constant;
 import com.cmlanche.core.utils.Logger;
 import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
@@ -67,6 +68,15 @@ public class TaskExecutor {
                                     break;
                                 case Constants.pkg_kuaishou:
                                     script = new KuaishouScript(info);
+                                    break;
+                                case Constants.pkg_miaokan_fast:
+                                    script = new MiaoKanFastScript(info);
+                                    break;
+                                case Constants.pkg_toutiao_fast:
+                                    script = new TouTiaoFastScript(info);
+                                    break;
+                                case Constants.pkg_yingwa:
+                                    script = new YingWaFastScript(info);
                                     break;
                             }
                             if (script != null) {

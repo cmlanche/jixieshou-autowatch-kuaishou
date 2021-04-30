@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal">
 
             <TextView
@@ -27,7 +27,7 @@
                 android:textColor="#0d0e56"
                 android:letterSpacing="0.01"
                 android:layout_marginStart="20dp"
-                android:text="捡破烂任务" />
+                android:text="捡豆子任务" />
 
             <ImageView
                 android:id="@+id/info"
@@ -35,8 +35,8 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
-                android:visibility="gone"
-                android:src="@drawable/info" />
+                android:src="@drawable/info"
+                android:visibility="gone" />
 
         </LinearLayout>
 

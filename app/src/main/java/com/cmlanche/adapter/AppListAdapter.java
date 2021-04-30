@@ -69,6 +69,12 @@ public class AppListAdapter extends BaseAdapter {
             holder.icon.setImageResource(R.drawable.dy);
         } else if (info.getPkgName().equals(Constants.pkg_kuaishou)) {
             holder.icon.setImageResource(R.drawable.ks);
+        }else if (info.getPkgName().equals(Constants.pkg_toutiao_fast)) {
+            holder.icon.setImageResource(R.drawable.icon_toutiao);
+        }else if (info.getPkgName().equals(Constants.pkg_miaokan_fast)) {
+            holder.icon.setImageResource(R.drawable.icon_miaokan);
+        }else if (info.getPkgName().equals(Constants.pkg_yingwa)) {
+            holder.icon.setImageResource(R.drawable.icon_yingwa);
         }
         return convertView;
     }

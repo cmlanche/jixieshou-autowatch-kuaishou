@@ -46,21 +46,21 @@ public class DouyinFastScript extends BaseScript {
             }
         }
 
-        int x = MyApplication.getAppInstance().getScreenWidth() / 2;
+        int x = MyApplication.getAppInstance().getScreenWidth() / 2+ (int)(Math.random()*100);
         int fromY = MyApplication.getAppInstance().getScreenHeight() - bottomMargin;
-        int toY = 100;
+        int toY = 100+ (int)(Math.random()*100);;
 
         new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
     }
 
     @Override
     protected int getMinSleepTime() {
-        return 10000;
+        return 5000;
     }
 
     @Override
     protected int getMaxSleepTime() {
-        return 20000;
+        return 10000;
     }
 
     @Override

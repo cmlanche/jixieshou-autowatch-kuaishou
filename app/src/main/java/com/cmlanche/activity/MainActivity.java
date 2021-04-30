@@ -1,6 +1,8 @@
 package com.cmlanche.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -21,7 +23,13 @@ import com.cmlanche.common.SPService;
 import com.cmlanche.common.leancloud.CheckUpdateTask;
 import com.cmlanche.core.service.MyAccessbilityService;
 import com.cmlanche.core.utils.AccessibilityUtils;
+import com.cmlanche.core.utils.Constant;
+import com.cmlanche.core.utils.DouYinUtil;
 import com.cmlanche.core.utils.KuaiShouUtil;
+import com.cmlanche.core.utils.MiaoKanUtil;
+import com.cmlanche.core.utils.SFUpdaterUtils;
+import com.cmlanche.core.utils.TouTiaoUtil;
+import com.cmlanche.core.utils.YingWaUtil;
 import com.cmlanche.floatwindow.PermissionUtil;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
@@ -38,7 +46,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
+import static com.cmlanche.core.utils.Constant.PN_DOU_YIN;
 import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
+import static com.cmlanche.core.utils.Constant.PN_TOU_TIAO;
+import static com.cmlanche.core.utils.Constant.PN_MIAO_KAN;
+import static com.cmlanche.core.utils.Constant.PN_YING_WA;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,12 +64,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView descriptionView;
     private List<AppInfo> appInfos = new ArrayList<>();
     private boolean isInstallKuaiShou = false;
+    private boolean isInstallDouyin = false;
+    private boolean isInstallTouTiao = false;
+    private boolean isInstallMiaokan = false;
+    private boolean isInstallYingWa = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyApplication.getAppInstance().setMainActivity(this);
+
+        SFUpdaterUtils.checkVersion(this);
 
         cardView = findViewById(R.id.newTaskCardView);
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +110,40 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(!isInstallKuaiShou){
-                    KuaiShouUtil.showDownLoadDialog(MainActivity.this);
-                    return;
+                for(AppInfo appInfo : appInfos){
+                    if(appInfo.getPkgName().equals(Constant.PN_KUAI_SHOU)){
+                        if(!isInstallKuaiShou){
+                            KuaiShouUtil.showDownLoadDialog(MainActivity.this);
+                            return;
+                        }
+
+                    }else if(appInfo.getPkgName().equals(Constant.PN_DOU_YIN)){
+                        if(!isInstallDouyin){
+                            DouYinUtil.showDownLoadDialog(MainActivity.this);
+                            return;
+                        }
+
+                    }else if(appInfo.getPkgName().equals(Constant.PN_TOU_TIAO)){
+                        if(!isInstallTouTiao){
+                            TouTiaoUtil.showDownLoadDialog(MainActivity.this);
+                            return;
+                        }
+
+                    }else if(appInfo.getPkgName().equals(Constant.PN_MIAO_KAN)){
+                        if(!isInstallMiaokan){
+                            MiaoKanUtil.showDownLoadDialog(MainActivity.this);
+                            return;
+                        }
+
+                    }else if(appInfo.getPkgName().equals(Constant.PN_YING_WA)){
+                        if(!isInstallYingWa){
+                            YingWaUtil.showDownLoadDialog(MainActivity.this);
+                            return;
+                        }
+
+                    }
                 }
+
 
                 if (!PermissionUtil.checkFloatPermission(getApplicationContext())) {
                     Toast.makeText(getApplicationContext(), "没有悬浮框权限，为了保证任务能够持续，请授权", Toast.LENGTH_LONG).show();
@@ -111,13 +159,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // 判断是否开启辅助服务
                 if (!AccessibilityUtils.isAccessibilitySettingsOn(getApplicationContext())) {
-                    Toast.makeText(getApplicationContext(), "请打开「捡破烂」的辅助服务", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "请打开「捡豆子」的辅助服务", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                     startActivity(intent);
                     return;
                 }
-
-
 
                 startService(new Intent(getApplicationContext(), MyAccessbilityService.class));
                 MyApplication.getAppInstance().startTask(appInfos);
@@ -127,6 +173,31 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.deviceNo);
         textView.setText("设备号：" + DeviceUtils.getDeviceSN());
 
+        if(appInfos.isEmpty()){
+//            AppInfo appInfo = new AppInfo();
+//            appInfo.setAppName("快手极速版");
+//            appInfo.setName("快手极速版");
+//            appInfo.setFree(true);
+//            appInfo.setPeriod(4l);
+//            appInfo.setPkgName(Constant.PN_KUAI_SHOU);
+//            List<AppInfo> appInfos = new ArrayList<>();
+//            appInfos.add(appInfo);
+//            TaskInfo taskInfo = new TaskInfo();
+//            taskInfo.setAppInfos(appInfos);
+//            SPService.put(SPService.SP_TASK_LIST, taskInfo);
+
+//            AppInfo appInfo = new AppInfo();
+//            appInfo.setAppName("抖音极速版");
+//            appInfo.setName("抖音极速版");
+//            appInfo.setFree(true);
+//            appInfo.setPeriod(4l);
+//            appInfo.setPkgName(PN_DOU_YIN);
+//            List<AppInfo> appInfos = new ArrayList<>();
+//            appInfos.add(appInfo);
+//            TaskInfo taskInfo = new TaskInfo();
+//            taskInfo.setAppInfos(appInfos);
+//            SPService.put(SPService.SP_TASK_LIST, taskInfo);
+        }
         this.initData();
     }
 
@@ -134,16 +205,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         isInstallKuaiShou = KuaiShouUtil.isInstallPackage(PN_KUAI_SHOU);
+        isInstallDouyin = DouYinUtil.isInstallPackage(PN_DOU_YIN);
+        isInstallTouTiao = TouTiaoUtil.isInstallPackage(PN_TOU_TIAO);
+        isInstallMiaokan = MiaoKanUtil.isInstallPackage(PN_MIAO_KAN);
+        isInstallYingWa = MiaoKanUtil.isInstallPackage(PN_YING_WA);
     }
 
     private void initData() {
         TaskInfo taskInfo = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
         if (taskInfo == null || taskInfo.getAppInfos() == null || taskInfo.getAppInfos().isEmpty()) {
             cardView.setVisibility(View.VISIBLE);
-//            fab.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
         } else {
             cardView.setVisibility(View.GONE);
-//            fab.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.VISIBLE);
             appInfos.addAll(taskInfo.getAppInfos());
             taskListAdapter.notifyDataSetChanged();
         }
@@ -159,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             // 100是新增任务
             AppInfo appInfo = JSON.parseObject(data.getStringExtra("appInfo"), AppInfo.class);
             cardView.setVisibility(View.GONE);
-//            fab.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.VISIBLE);
             appInfos.add(appInfo);
             taskListAdapter.notifyDataSetChanged();
             saveTaskList();
@@ -174,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                 deleteAppInfo(appInfo);
                 if (appInfos.isEmpty()) {
                     cardView.setVisibility(View.VISIBLE);
-//                    fab.setVisibility(View.GONE);
+                    fab.setVisibility(View.GONE);
                 }
                 saveTaskList();
             } else if (resultCode == 2) {
@@ -277,5 +352,20 @@ public class MainActivity extends AppCompatActivity {
             info = null;
         }
         return info != null;
+    }
+
+    private void showExitDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("注意");
+        builder.setMessage("确定要退出捡豆任务吗？");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);//正常退出App
+                Toast.makeText(getApplicationContext(), "退出捡豆子", Toast.LENGTH_LONG).show();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
