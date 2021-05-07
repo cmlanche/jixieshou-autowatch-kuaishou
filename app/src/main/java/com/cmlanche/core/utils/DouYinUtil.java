@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import java.io.File;
 
 import static com.cmlanche.core.utils.Constant.PN_DOU_YIN;
-import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
 
 public class DouYinUtil {
     private static boolean isKuaiShouInstalled() {

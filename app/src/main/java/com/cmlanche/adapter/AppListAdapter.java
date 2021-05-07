@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cmlanche.common.Constants;
+import com.cmlanche.core.utils.Constant;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
 
@@ -61,19 +61,17 @@ public class AppListAdapter extends BaseAdapter {
             holder.free.setText("VIP");
         }
         holder.name.setText(info.getName());
-        if (info.getPkgName().equals(Constants.pkg_douyin_fast)) {
+        if (info.getPkgName().equals(Constant.PN_DOU_YIN)) {
             holder.icon.setImageResource(R.drawable.dy_fast);
-        } else if (info.getPkgName().equals(Constants.pkg_kuaishou_fast)) {
+        } else if (info.getPkgName().equals(Constant.PN_KUAI_SHOU)) {
             holder.icon.setImageResource(R.drawable.ks_fast);
-        } else if (info.getPkgName().equals(Constants.pkg_douyin)) {
+        } else if (info.getPkgName().equals(Constant.PN_DOU_YIN)) {
             holder.icon.setImageResource(R.drawable.dy);
-        } else if (info.getPkgName().equals(Constants.pkg_kuaishou)) {
-            holder.icon.setImageResource(R.drawable.ks);
-        }else if (info.getPkgName().equals(Constants.pkg_toutiao_fast)) {
+        }else if (info.getPkgName().equals(Constant.PN_TOU_TIAO)) {
             holder.icon.setImageResource(R.drawable.icon_toutiao);
-        }else if (info.getPkgName().equals(Constants.pkg_miaokan_fast)) {
-            holder.icon.setImageResource(R.drawable.icon_miaokan);
-        }else if (info.getPkgName().equals(Constants.pkg_yingwa)) {
+        }else if (info.getPkgName().equals(Constant.PN_FENG_SHENG)) {
+            holder.icon.setImageResource(R.drawable.icon_fengsheng);
+        }else if (info.getPkgName().equals(Constant.PN_DIAN_TAO)) {
             holder.icon.setImageResource(R.drawable.icon_yingwa);
         }
         return convertView;

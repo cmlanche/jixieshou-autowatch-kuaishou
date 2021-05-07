@@ -11,8 +11,6 @@ import android.provider.Settings;
 
 import java.util.List;
 
-import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
-
 public class AccessibilityUtil {
     private final String TAG = this.getClass().getSimpleName();
     // 跳转到应用宝的网页版地址

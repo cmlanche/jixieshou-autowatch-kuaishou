@@ -1,7 +1,9 @@
 package com.cmlanche.scripts;
 
+import android.util.Log;
+
 import com.cmlanche.application.MyApplication;
-import com.cmlanche.common.Constants;
+import com.cmlanche.core.utils.Constant;
 import com.cmlanche.common.PackageUtils;
 import com.cmlanche.core.bus.BusEvent;
 import com.cmlanche.core.bus.BusManager;
@@ -12,8 +14,12 @@ import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
 import com.cmlanche.model.TaskInfo;
 
+import java.util.Calendar;
 import java.util.List;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import static com.cmlanche.core.bus.EventType.goto_target_app;
 import static com.cmlanche.core.bus.EventType.pause_becauseof_not_destination_page;
 
 /**
@@ -57,26 +63,20 @@ public class TaskExecutor {
                             currentTestApp = info;
                             IScript script = null;
                             switch (info.getPkgName()) {
-                                case Constants.pkg_douyin_fast:
+                                case Constant.PN_DOU_YIN:
                                     script = new DouyinFastScript(info);
                                     break;
-                                case Constants.pkg_kuaishou_fast:
+                                case Constant.PN_KUAI_SHOU:
                                     script = new KuaishouFastScript(info);
                                     break;
-                                case Constants.pkg_douyin:
-                                    script = new DouyinScript(info);
-                                    break;
-                                case Constants.pkg_kuaishou:
-                                    script = new KuaishouScript(info);
-                                    break;
-                                case Constants.pkg_miaokan_fast:
-                                    script = new MiaoKanFastScript(info);
-                                    break;
-                                case Constants.pkg_toutiao_fast:
+                                case Constant.PN_TOU_TIAO:
                                     script = new TouTiaoFastScript(info);
                                     break;
-                                case Constants.pkg_yingwa:
-                                    script = new YingWaFastScript(info);
+                                case Constant.PN_FENG_SHENG:
+                                    script = new FengShengFastScript(info);
+                                    break;
+                                case Constant.PN_DIAN_TAO:
+                                    script = new DianTaoFastScript(info);
                                     break;
                             }
                             if (script != null) {
@@ -112,6 +112,26 @@ public class TaskExecutor {
                     while (System.currentTimeMillis() - st < allTime) {
                         try {
                             if (currentScript != null) {
+                                Logger.d("monitorThread");
+
+                                if(currentTestApp.getPkgName().equals(Constant.PN_FENG_SHENG)){
+                                    Calendar c = Calendar.getInstance();//
+                                    int mHour = c.get(Calendar.HOUR_OF_DAY);//时
+                                    int mMinute = c.get(Calendar.MINUTE);//分
+                                    Logger.d("mHour:"+mHour +" mMinute:" + mMinute);
+                                    if((mHour == 8 && mMinute == 30) || (mHour == 22 && mMinute == 30) || (mHour == 15 && mMinute == 49)){
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(!currentScript.isDestinationPage()){
+                                                    PackageUtils.startApp(currentTestApp.getPkgName());
+                                                }
+                                            }
+                                         });
+                                    }else{
+                                        continue;
+                                    }
+                                }
                                 if(isForcePause()) {
                                     setPause(true);
                                 } else {

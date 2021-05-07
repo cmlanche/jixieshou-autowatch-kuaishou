@@ -6,12 +6,11 @@ import android.content.DialogInterface;
 
 import java.io.File;
 
-import static com.cmlanche.core.utils.Constant.PN_MIAO_KAN;
-import static com.cmlanche.core.utils.Constant.PN_TOU_TIAO;
+import static com.cmlanche.core.utils.Constant.PN_DOU_YIN;
 
-public class MiaoKanUtil {
+public class FengShengUtil {
     private static boolean isKuaiShouInstalled() {
-        return isInstallPackage(PN_MIAO_KAN);
+        return isInstallPackage(Constant.PN_FENG_SHENG);
     }
     public static boolean isInstallPackage(String packageName) {
         return new File("/data/data/" + packageName).exists();
@@ -27,12 +26,12 @@ public class MiaoKanUtil {
 
     public static void showDownLoadDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("秒看领红包未安装");
-        builder.setMessage("点击确定前往应用商店下载秒看领红包");
+        builder.setTitle("丰声未安装");
+        builder.setMessage("点击确定前往应用商店下载丰声");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                AccessibilityUtil.goToAppMarket(context,Constant.PN_MIAO_KAN);
+                AccessibilityUtil.goToAppMarket(context,Constant.PN_FENG_SHENG);
             }
         });
         AlertDialog dialog = builder.create();

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cmlanche.common.Constants;
+import com.cmlanche.core.utils.Constant;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
 
@@ -56,19 +56,17 @@ public class TaskListAdapter extends BaseAdapter {
         AppInfo appInfo = getItem(i);
 
         holder.name.setText(appInfo.getName());
-        if (appInfo.getPkgName().equals(Constants.pkg_douyin_fast)) {
+        if (appInfo.getPkgName().equals(Constant.PN_DOU_YIN)) {
             holder.icon.setImageResource(R.drawable.dy_fast);
-        } else if (appInfo.getPkgName().equals(Constants.pkg_kuaishou_fast)) {
+        } else if (appInfo.getPkgName().equals(Constant.PN_KUAI_SHOU)) {
             holder.icon.setImageResource(R.drawable.ks_fast);
-        } else if (appInfo.getPkgName().equals(Constants.pkg_douyin)) {
+        } else if (appInfo.getPkgName().equals(Constant.PN_DOU_YIN)) {
             holder.icon.setImageResource(R.drawable.dy);
-        }else if (appInfo.getPkgName().equals(Constants.pkg_kuaishou)) {
-            holder.icon.setImageResource(R.drawable.ks);
-        }else if (appInfo.getPkgName().equals(Constants.pkg_toutiao_fast)) {
+        }else if (appInfo.getPkgName().equals(Constant.PN_TOU_TIAO)) {
             holder.icon.setImageResource(R.drawable.icon_toutiao);
-        }else if (appInfo.getPkgName().equals(Constants.pkg_miaokan_fast)) {
-            holder.icon.setImageResource(R.drawable.icon_miaokan);
-        }else if (appInfo.getPkgName().equals(Constants.pkg_yingwa)) {
+        }else if (appInfo.getPkgName().equals(Constant.PN_FENG_SHENG)) {
+            holder.icon.setImageResource(R.drawable.icon_fengsheng);
+        }else if (appInfo.getPkgName().equals(Constant.PN_DIAN_TAO)) {
             holder.icon.setImageResource(R.drawable.icon_yingwa);
         }
         holder.time.setText(String.format("%d小时", appInfo.getPeriod()));

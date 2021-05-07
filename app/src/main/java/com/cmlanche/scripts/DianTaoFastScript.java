@@ -8,12 +8,15 @@ import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.ActionUtils;
 import com.cmlanche.model.AppInfo;
 
-public class MiaoKanFastScript extends BaseScript {
+/**
+ * 快手急速版脚本
+ */
+public class DianTaoFastScript extends BaseScript {
 
     // 是否有检查"我知道了"
     private boolean isCheckedWozhidaole;
 
-    public MiaoKanFastScript(AppInfo appInfo) {
+    public DianTaoFastScript(AppInfo appInfo) {
         super(appInfo);
     }
 
@@ -31,8 +34,8 @@ public class MiaoKanFastScript extends BaseScript {
             }
         }
 
-        int x = MyApplication.getAppInstance().getScreenWidth() / 2+ (int)(Math.random()*100);;
-        int margin = 100+ (int)(Math.random()*100);;
+        int x = MyApplication.getAppInstance().getScreenWidth() / 2 + (int)(Math.random()*100);
+        int margin = 100+ (int)(Math.random()*100);
         int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;
         int toY = margin;
         new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
@@ -65,10 +68,10 @@ public class MiaoKanFastScript extends BaseScript {
             return false;
         }
         // 检测是否有滑屏页面
-//        nodeInfo = findById("slide_play_view_pager");
-//        if (nodeInfo == null) {
-//            return false;
-//        }
+        nodeInfo = findById("slide_play_view_pager");
+        if (nodeInfo == null) {
+            return false;
+        }
         return true;
     }
 }

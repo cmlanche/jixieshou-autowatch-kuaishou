@@ -45,4 +45,9 @@ public class EventType {
      * 从停止状态认为启动
      */
     public static final int unpause_byhand = 9;
+
+    /**
+     * 程序跳转到目标app
+     */
+    public static final int goto_target_app = 10;
 }

@@ -6,4 +6,5 @@ package com.cmlanche.core.executor.data;
  */
 public class StepNames {
     public static final String SWIP_SCREEN = "swip_screen";
+    public static final String SF_COLOCK_IN = "sf_clock_in";
 }

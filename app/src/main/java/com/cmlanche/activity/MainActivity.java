@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,12 +25,12 @@ import com.cmlanche.common.leancloud.CheckUpdateTask;
 import com.cmlanche.core.service.MyAccessbilityService;
 import com.cmlanche.core.utils.AccessibilityUtils;
 import com.cmlanche.core.utils.Constant;
+import com.cmlanche.core.utils.DianTaoUtil;
 import com.cmlanche.core.utils.DouYinUtil;
+import com.cmlanche.core.utils.FengShengUtil;
 import com.cmlanche.core.utils.KuaiShouUtil;
-import com.cmlanche.core.utils.MiaoKanUtil;
 import com.cmlanche.core.utils.SFUpdaterUtils;
 import com.cmlanche.core.utils.TouTiaoUtil;
-import com.cmlanche.core.utils.YingWaUtil;
 import com.cmlanche.floatwindow.PermissionUtil;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
@@ -48,9 +49,9 @@ import androidx.core.app.ActivityCompat;
 
 import static com.cmlanche.core.utils.Constant.PN_DOU_YIN;
 import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
+import static com.cmlanche.core.utils.Constant.PN_FENG_SHENG;
 import static com.cmlanche.core.utils.Constant.PN_TOU_TIAO;
-import static com.cmlanche.core.utils.Constant.PN_MIAO_KAN;
-import static com.cmlanche.core.utils.Constant.PN_YING_WA;
+import static com.cmlanche.core.utils.Constant.PN_DIAN_TAO;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,13 +65,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView descriptionView;
     private List<AppInfo> appInfos = new ArrayList<>();
     private boolean isInstallKuaiShou = false;
+    private boolean isInstallFengSheng = false;
     private boolean isInstallDouyin = false;
     private boolean isInstallTouTiao = false;
-    private boolean isInstallMiaokan = false;
-    private boolean isInstallYingWa = false;
+    private boolean isInstallDianTao = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyApplication.getAppInstance().setMainActivity(this);
@@ -117,6 +119,13 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
 
+                    }
+                    if(appInfo.getPkgName().equals(Constant.PN_FENG_SHENG)){
+                        if(!isInstallFengSheng){
+                            FengShengUtil.showDownLoadDialog(MainActivity.this);
+                            return;
+                        }
+
                     }else if(appInfo.getPkgName().equals(Constant.PN_DOU_YIN)){
                         if(!isInstallDouyin){
                             DouYinUtil.showDownLoadDialog(MainActivity.this);
@@ -129,15 +138,9 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
 
-                    }else if(appInfo.getPkgName().equals(Constant.PN_MIAO_KAN)){
-                        if(!isInstallMiaokan){
-                            MiaoKanUtil.showDownLoadDialog(MainActivity.this);
-                            return;
-                        }
-
-                    }else if(appInfo.getPkgName().equals(Constant.PN_YING_WA)){
-                        if(!isInstallYingWa){
-                            YingWaUtil.showDownLoadDialog(MainActivity.this);
+                    }else if(appInfo.getPkgName().equals(Constant.PN_DIAN_TAO)){
+                        if(!isInstallDianTao){
+                            DianTaoUtil.showDownLoadDialog(MainActivity.this);
                             return;
                         }
 
@@ -186,6 +189,18 @@ public class MainActivity extends AppCompatActivity {
 //            taskInfo.setAppInfos(appInfos);
 //            SPService.put(SPService.SP_TASK_LIST, taskInfo);
 
+            AppInfo appInfo = new AppInfo();
+            appInfo.setAppName("丰声打卡");
+            appInfo.setName("丰声打卡");
+            appInfo.setFree(true);
+            appInfo.setPeriod(24l);
+            appInfo.setPkgName(Constant.PN_FENG_SHENG);
+            List<AppInfo> appInfos = new ArrayList<>();
+            appInfos.add(appInfo);
+            TaskInfo taskInfo = new TaskInfo();
+            taskInfo.setAppInfos(appInfos);
+            SPService.put(SPService.SP_TASK_LIST, taskInfo);
+
 //            AppInfo appInfo = new AppInfo();
 //            appInfo.setAppName("抖音极速版");
 //            appInfo.setName("抖音极速版");
@@ -204,11 +219,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        isInstallFengSheng = FengShengUtil.isInstallPackage(PN_FENG_SHENG);
         isInstallKuaiShou = KuaiShouUtil.isInstallPackage(PN_KUAI_SHOU);
         isInstallDouyin = DouYinUtil.isInstallPackage(PN_DOU_YIN);
         isInstallTouTiao = TouTiaoUtil.isInstallPackage(PN_TOU_TIAO);
-        isInstallMiaokan = MiaoKanUtil.isInstallPackage(PN_MIAO_KAN);
-        isInstallYingWa = MiaoKanUtil.isInstallPackage(PN_YING_WA);
+        isInstallDianTao = DianTaoUtil.isInstallPackage(PN_DIAN_TAO);
     }
 
     private void initData() {

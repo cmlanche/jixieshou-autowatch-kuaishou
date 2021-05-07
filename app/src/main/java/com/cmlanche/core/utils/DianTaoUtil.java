@@ -6,12 +6,12 @@ import android.content.DialogInterface;
 
 import java.io.File;
 
-import static com.cmlanche.core.utils.Constant.PN_TOU_TIAO;
-import static com.cmlanche.core.utils.Constant.PN_YING_WA;
+import static com.cmlanche.core.utils.Constant.PN_DIAN_TAO;
+import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
 
-public class YingWaUtil {
+public class DianTaoUtil {
     private static boolean isKuaiShouInstalled() {
-        return isInstallPackage(PN_YING_WA);
+        return isInstallPackage(PN_DIAN_TAO);
     }
     public static boolean isInstallPackage(String packageName) {
         return new File("/data/data/" + packageName).exists();
@@ -27,12 +27,12 @@ public class YingWaUtil {
 
     public static void showDownLoadDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("影蛙影视未安装");
-        builder.setMessage("点击确定前往应用商店下载影蛙影视");
+        builder.setTitle("点淘App未安装");
+        builder.setMessage("点击确定前往应用商店下载点淘App");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                AccessibilityUtil.goToAppMarket(context,Constant.PN_YING_WA);
+                AccessibilityUtil.goToAppMarket(context,Constant.PN_DIAN_TAO);
             }
         });
         AlertDialog dialog = builder.create();

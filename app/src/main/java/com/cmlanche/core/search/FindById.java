@@ -10,7 +10,7 @@ import com.cmlanche.core.search.node.TreeInfo;
 import com.cmlanche.core.utils.Utils;
 
 public class FindById {
-
+    static String TAG = "FindById";
     public static NodeInfo find(String id) {
         AccessibilityNodeInfo[] roots = MyApplication.getAppInstance().getAccessbilityService().getRoots();
         if (roots == null) {
@@ -44,6 +44,7 @@ public class FindById {
             return false;
         }
         String rid = nodeInfo.getId();
+        Log.d(TAG,"isMatch:"+rid);
         return Utils.textMatch(id, rid);
     }
 

@@ -53,6 +53,7 @@ import java.util.concurrent.Future;
 import cn.leancloud.AVOSCloud;
 
 import static com.cmlanche.core.bus.EventType.accessiblity_connected;
+import static com.cmlanche.core.bus.EventType.goto_target_app;
 import static com.cmlanche.core.bus.EventType.no_roots_alert;
 import static com.cmlanche.core.bus.EventType.pause_becauseof_not_destination_page;
 import static com.cmlanche.core.bus.EventType.pause_byhand;
@@ -131,9 +132,17 @@ public class MyApplication extends Application {
                     setFloatText("已暂停(非任务页面)");
                 }
                 break;
+            case goto_target_app:
+                TaskInfo taskInfo = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
+                startTask(taskInfo.getAppInfos());
+                break;
             case refresh_time:
                 if (!TaskExecutor.getInstance().isForcePause()) {
-                    setFloatText("已执行：" + event.getData());
+                    if(TaskExecutor.getInstance().getCurrentTestApp().getPkgName().equals(Constant.PN_FENG_SHENG)){
+                        setFloatText("定时打卡");
+                    }else {
+                        setFloatText("已执行：" + event.getData());
+                    }
                 }
                 break;
             case no_roots_alert:

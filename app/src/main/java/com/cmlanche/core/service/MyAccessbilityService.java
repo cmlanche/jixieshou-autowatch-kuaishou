@@ -29,7 +29,7 @@ public class MyAccessbilityService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Logger.d("MyAccessbilityService event: " + event);
+//        Logger.d("MyAccessbilityService event: " + event);
     }
 
     @Override
@@ -106,7 +106,6 @@ public class MyAccessbilityService extends AccessibilityService {
     public void onCreate() {
         super.onCreate();
         Logger.d("MyAccessbilityService on create");
-
         BusManager.getBus().post(new BusEvent<>(EventType.set_accessiblity, this));
     }
 
