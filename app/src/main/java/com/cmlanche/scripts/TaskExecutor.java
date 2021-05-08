@@ -8,11 +8,10 @@ import com.cmlanche.common.PackageUtils;
 import com.cmlanche.core.bus.BusEvent;
 import com.cmlanche.core.bus.BusManager;
 import com.cmlanche.core.bus.EventType;
-import com.cmlanche.core.utils.Constant;
-import com.cmlanche.core.utils.Logger;
 import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
 import com.cmlanche.model.TaskInfo;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.Calendar;
 import java.util.List;
@@ -26,7 +25,7 @@ import static com.cmlanche.core.bus.EventType.pause_becauseof_not_destination_pa
  * 任务执行器
  */
 public class TaskExecutor {
-
+    private String TAG = this.getClass().getSimpleName();
     private TaskInfo taskInfo;
 
     private boolean isStarted = false;
@@ -85,12 +84,14 @@ public class TaskExecutor {
                             }
                         }
                     } catch (Exception e) {
-                        Logger.e("执行任务异常：" + e.getMessage(), e);
+                        Log.e(TAG,"执行任务异常：" + e.getMessage());
+                        CrashReport.postCatchedException(e);
                     } finally {
                         // 执行完成
                         resetFlags();
                         PackageUtils.startSelf();
-                        Logger.i("执行完成，回到本程序");
+                        Log.i(TAG,"执行完成，回到本程序");
+                        CrashReport.postCatchedException(new Exception("执行完成，回到本程序"));
                     }
                 }
             });
@@ -100,7 +101,9 @@ public class TaskExecutor {
                 @Override
                 public void run() {
                     final long st = System.currentTimeMillis();
-                    final long allTime = taskInfo.getHours() * 60 * 60 * 1000;
+                    Log.d(TAG,"st:"+st);
+//                    final long allTime = taskInfo.getHours() * 60 * 60 * 1000;
+                    final long allTime = 1 * 60* 1000;
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -110,15 +113,14 @@ public class TaskExecutor {
                     });
 
                     while (System.currentTimeMillis() - st < allTime) {
+                        Log.d(TAG,"System.currentTimeMillis() - st:"+(System.currentTimeMillis() - st));
                         try {
                             if (currentScript != null) {
-                                Logger.d("monitorThread");
-
                                 if(currentTestApp.getPkgName().equals(Constant.PN_FENG_SHENG)){
                                     Calendar c = Calendar.getInstance();//
                                     int mHour = c.get(Calendar.HOUR_OF_DAY);//时
                                     int mMinute = c.get(Calendar.MINUTE);//分
-                                    Logger.d("mHour:"+mHour +" mMinute:" + mMinute);
+                                    Log.d(TAG,"mHour:"+mHour +" mMinute:" + mMinute);
                                     if((mHour == 8 && mMinute == 30) || (mHour == 22 && mMinute == 30) || (mHour == 15 && mMinute == 49)){
                                         runOnUiThread(new Runnable() {
                                             @Override
@@ -150,11 +152,19 @@ public class TaskExecutor {
                                 }
                             }
                         } catch (Exception e) {
-                            Logger.e("监控异常：" + e.getMessage(), e);
+                            Log.e(TAG,"监控异常：" + e.getMessage());
                         } finally {
                             Utils.sleep(1000);
                         }
                     }
+                    setPause(true);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            BusManager.getBus().post(new BusEvent<>(EventType.task_finish, currentTestApp));
+                        }
+                    });
+                    Log.e(TAG,"到期了");
                 }
             });
             monitorThread.start();
@@ -163,7 +173,7 @@ public class TaskExecutor {
                 currentScript.resetStartTime();
                 currentScript.startApp();
             } else {
-                Logger.e("不可能走这里，如果走这里，程序出bug了");
+                Log.e(TAG,"不可能走这里，如果走这里，程序出bug了");
             }
         }
     }

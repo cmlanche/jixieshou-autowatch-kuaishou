@@ -1,6 +1,7 @@
 package com.cmlanche.scripts;
 
 import android.graphics.Point;
+import android.util.Log;
 
 import com.cmlanche.application.MyApplication;
 import com.cmlanche.core.executor.builder.SwipStepBuilder;
@@ -14,6 +15,7 @@ import java.util.Random;
  * 快手急速版脚本
  */
 public class KuaishouFastScript extends BaseScript {
+    private String TAG = this.getClass().getSimpleName();
 
     // 是否有检查"我知道了"
     private boolean isCheckedWozhidaole;
@@ -24,6 +26,10 @@ public class KuaishouFastScript extends BaseScript {
 
     @Override
     protected void executeScript() {
+        if(!isTargetPkg()) {
+            return;
+        }
+
         if(!isCheckedWozhidaole) {
             // 检查是否有青少年模式
             NodeInfo nodeInfo = findByText("*为呵护未成年人健康*");
@@ -35,7 +41,7 @@ public class KuaishouFastScript extends BaseScript {
                 }
             }
         }
-
+        Log.d(TAG,"executeScript()");
         int x = MyApplication.getAppInstance().getScreenWidth() / 2 + (int)(Math.random()*100);
         int margin = 100+ (int)(Math.random()*100);
         int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;

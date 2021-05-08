@@ -50,4 +50,9 @@ public class EventType {
      * 程序跳转到目标app
      */
     public static final int goto_target_app = 10;
+
+    /**
+     * 目标app任务完成
+     */
+    public static final int task_finish = 11;
 }

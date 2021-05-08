@@ -34,7 +34,6 @@
                     android:textSize="20sp"
                     android:textColor="#0d0e56"
                     android:layout_gravity="center"
-                    android:layout_marginTop="12dp"
                     android:text="请选择一个任务" />
 
                 <TextView
@@ -71,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="4dp"
                     android:background="#fff">

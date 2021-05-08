@@ -2,6 +2,9 @@ package com.cmlanche.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -9,9 +12,11 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private TaskListAdapter taskListAdapter;
     private MaterialButton startBtn;
+    private MaterialButton btnShare;
     private TextView descriptionView;
     private List<AppInfo> appInfos = new ArrayList<>();
     private boolean isInstallKuaiShou = false;
@@ -102,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         descriptionView = findViewById(R.id.description);
+
+        btnShare = findViewById(R.id.btn_share);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShareAppDilaog();
+            }
+        });
 
         startBtn = findViewById(R.id.startBtn);
         startBtn.setOnClickListener(new View.OnClickListener() {
@@ -176,42 +190,30 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.deviceNo);
         textView.setText("设备号：" + DeviceUtils.getDeviceSN());
 
-        if(appInfos.isEmpty()){
-//            AppInfo appInfo = new AppInfo();
-//            appInfo.setAppName("快手极速版");
-//            appInfo.setName("快手极速版");
-//            appInfo.setFree(true);
-//            appInfo.setPeriod(4l);
-//            appInfo.setPkgName(Constant.PN_KUAI_SHOU);
-//            List<AppInfo> appInfos = new ArrayList<>();
-//            appInfos.add(appInfo);
-//            TaskInfo taskInfo = new TaskInfo();
-//            taskInfo.setAppInfos(appInfos);
-//            SPService.put(SPService.SP_TASK_LIST, taskInfo);
+        TaskInfo hisTaskInfo = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
+        if (hisTaskInfo == null || hisTaskInfo.getAppInfos() == null || hisTaskInfo.getAppInfos().isEmpty()) {
+            List<AppInfo> appInfos = new ArrayList<>();
 
             AppInfo appInfo = new AppInfo();
-            appInfo.setAppName("丰声打卡");
-            appInfo.setName("丰声打卡");
+            appInfo.setAppName("快手极速版");
+            appInfo.setName("快手极速版");
             appInfo.setFree(true);
-            appInfo.setPeriod(24l);
-            appInfo.setPkgName(Constant.PN_FENG_SHENG);
-            List<AppInfo> appInfos = new ArrayList<>();
+            appInfo.setPeriod(4l);
+            appInfo.setPkgName(Constant.PN_KUAI_SHOU);
             appInfos.add(appInfo);
+
+            appInfo = new AppInfo();
+            appInfo.setAppName("点淘(淘宝直播)");
+            appInfo.setName("点淘(淘宝直播)");
+            appInfo.setFree(true);
+            appInfo.setPeriod(4l);
+            appInfo.setPkgName(Constant.PN_DIAN_TAO);
+            appInfos.add(appInfo);
+
+
             TaskInfo taskInfo = new TaskInfo();
             taskInfo.setAppInfos(appInfos);
             SPService.put(SPService.SP_TASK_LIST, taskInfo);
-
-//            AppInfo appInfo = new AppInfo();
-//            appInfo.setAppName("抖音极速版");
-//            appInfo.setName("抖音极速版");
-//            appInfo.setFree(true);
-//            appInfo.setPeriod(4l);
-//            appInfo.setPkgName(PN_DOU_YIN);
-//            List<AppInfo> appInfos = new ArrayList<>();
-//            appInfos.add(appInfo);
-//            TaskInfo taskInfo = new TaskInfo();
-//            taskInfo.setAppInfos(appInfos);
-//            SPService.put(SPService.SP_TASK_LIST, taskInfo);
         }
         this.initData();
     }
@@ -382,5 +384,26 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void showShareAppDilaog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_share_app, null);
+        builder.setView(inflate);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        MaterialButton btnColse = inflate.findViewById(R.id.btn_colse);
+        MaterialButton btn_copy = inflate.findViewById(R.id.btn_copy);
+        btnColse.setOnClickListener(v -> dialog.dismiss());
+        btn_copy.setOnClickListener(v -> {
+            //获取剪贴板管理器：
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            // 创建普通字符型ClipData
+            ClipData mClipData = ClipData.newPlainText("Label", "https://marm-core.sf-express.com/app-download/2e69975d7e0348009687c4cbf7bcf954");
+            // 将ClipData内容放到系统剪贴板里。
+            cm.setPrimaryClip(mClipData);
+            Toast.makeText(this, "下载链接已复制,可粘贴微信QQ进行分享", Toast.LENGTH_LONG).show();
+            dialog.dismiss();
+        });
     }
 }

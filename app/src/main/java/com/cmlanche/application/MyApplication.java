@@ -45,6 +45,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,6 +62,7 @@ import static com.cmlanche.core.bus.EventType.refresh_time;
 import static com.cmlanche.core.bus.EventType.roots_ready;
 import static com.cmlanche.core.bus.EventType.set_accessiblity;
 import static com.cmlanche.core.bus.EventType.start_task;
+import static com.cmlanche.core.bus.EventType.task_finish;
 import static com.cmlanche.core.bus.EventType.unpause_byhand;
 
 public class MyApplication extends Application {
@@ -156,6 +158,23 @@ public class MyApplication extends Application {
             case accessiblity_connected:
                 this.isFirstConnectAccessbilityService = true;
                 setFloatText("捡豆子已准备就绪，点我启动");
+                break;
+            case task_finish:
+                Log.d(TAG,"当前任务完成");
+                AppInfo appInfo = (AppInfo) event.getData();
+                TaskInfo taskInfo1 = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
+                List<AppInfo> appInfos = taskInfo1.getAppInfos();
+                Iterator<AppInfo> iterator = appInfos.iterator();
+                while (iterator.hasNext()){
+                    if(iterator.next().getPkgName().equals(appInfo.getPkgName())){
+                        iterator.remove();
+                        Log.d(TAG,"移除当前任务");
+                    }
+                }
+                if(!appInfos.isEmpty()){
+                    startTask(appInfos);
+                }else {
+                }
                 break;
         }
     }
