@@ -36,6 +36,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info6){
             Log.d(TAG,"FIND tt_splash_skip_btn");
             new SFStepBuilder().addStep(info6).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND tt_splash_skip_btn");
         }
@@ -53,6 +54,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info1){
             Log.d(TAG,"FIND ap5");
             new SFStepBuilder().addStep(info1).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND ap5");
         }
@@ -61,12 +63,14 @@ public class YingKeFastScript extends BaseScript {
         if(null != info2){
             Log.d(TAG,"FIND 开抢中");
             new SFStepBuilder().addStep(new Point(100*((int)(Math.random()*10)),800)).get().execute();
+            Utils.sleep(1000);
         }
 
         NodeInfo info3 = findById("ksad_end_close_btn");
         if(null != info3){
             Log.d(TAG,"FIND ksad_end_close_btn");
             new SFStepBuilder().addStep(info3).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND ksad_end_close_btn");
         }
@@ -75,6 +79,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info4){
             Log.d(TAG,"FIND gh");
             new SFStepBuilder().addStep(info4).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND gh");
         }
@@ -83,6 +88,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info7){
             Log.d(TAG,"FIND 关闭");
             new SFStepBuilder().addStep(info7).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND 关闭");
         }
@@ -91,6 +97,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info5){
             Log.d(TAG,"FIND bvd");
             new SFStepBuilder().addStep(info5).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND bvd");
         }
@@ -100,6 +107,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info8){
             Log.d(TAG,"FIND tt_video_ad_close_layout");
             new SFStepBuilder().addStep(info8).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND tt_video_ad_close_layout");
         }
@@ -108,6 +116,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info9){
             Log.d(TAG,"FIND 放弃奖励");
             new SFStepBuilder().addStep(info9).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND 放弃奖励");
         }
@@ -117,6 +126,7 @@ public class YingKeFastScript extends BaseScript {
         if(null != info10){
             Log.d(TAG,"FIND cancel");
             new SFStepBuilder().addStep(info10).get().execute();
+            Utils.sleep(1000);
         }else {
             Log.d(TAG,"Not FIND cancel");
         }
@@ -124,13 +134,36 @@ public class YingKeFastScript extends BaseScript {
 
         NodeInfo info11 = findById("content");
         if(null != info11 && info11.getClassName().equals("android.widget.FrameLayout")){
-            Log.d(TAG,"FIND cancel");
+            Log.d(TAG,"FIND content");
             NodeInfo info12 = findById("tt_top_dislike");
+            NodeInfo info13 = findById("tt_reward_browser_webview");
             if(null == info8 && null == info12){
-                new SFStepBuilder().addStep(new Point(950,200)).get().execute();
+                if(null != info13){
+                    new SFStepBuilder().addStep(new Point(950,200)).get().execute();
+                    Utils.sleep(1000);
+                }
             }
         }else {
             Log.d(TAG,"Not FIND cancel");
+        }
+
+
+        NodeInfo info12 = findById("tt_insert_dislike_icon_img");
+        if(null != info12){
+            Log.d(TAG,"FIND tt_insert_dislike_icon_img");
+            new SFStepBuilder().addStep(info12).get().execute();
+            Utils.sleep(1000);
+        }else {
+            Log.d(TAG,"Not FIND cancel");
+        }
+
+        NodeInfo info13 = findByText("恭喜获得奖励");
+        if(null != info13){
+            Log.d(TAG,"FIND 恭喜获得奖励");
+            new SFStepBuilder().addStep(new Point(100,160)).get().execute();
+            Utils.sleep(1000);
+        }else {
+            Log.d(TAG,"Not FIND 恭喜获得奖励");
         }
 //        if(!isCheckedWozhidaole) {
 //            // 检查是否有青少年模式
