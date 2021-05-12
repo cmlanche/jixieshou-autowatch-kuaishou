@@ -10,6 +10,8 @@ import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
 
+import org.w3c.dom.Node;
+
 /**
  * 点淘急速版脚本
  */
@@ -77,12 +79,12 @@ public class YingKeFastScript extends BaseScript {
             Log.d(TAG,"Not FIND gh");
         }
 
-        NodeInfo info7 = findByText("跳过");
+        NodeInfo info7 = findByText("关闭");
         if(null != info7){
-            Log.d(TAG,"FIND 跳过");
+            Log.d(TAG,"FIND 关闭");
             new SFStepBuilder().addStep(info7).get().execute();
         }else {
-            Log.d(TAG,"Not FIND 跳过");
+            Log.d(TAG,"Not FIND 关闭");
         }
 
         NodeInfo info5 = findById("bvd");
@@ -93,6 +95,43 @@ public class YingKeFastScript extends BaseScript {
             Log.d(TAG,"Not FIND bvd");
         }
 
+
+        NodeInfo info8 = findById("tt_video_ad_close_layout");
+        if(null != info8){
+            Log.d(TAG,"FIND tt_video_ad_close_layout");
+            new SFStepBuilder().addStep(info8).get().execute();
+        }else {
+            Log.d(TAG,"Not FIND tt_video_ad_close_layout");
+        }
+
+        NodeInfo info9 = findByText("放弃奖励");
+        if(null != info9){
+            Log.d(TAG,"FIND 放弃奖励");
+            new SFStepBuilder().addStep(info9).get().execute();
+        }else {
+            Log.d(TAG,"Not FIND 放弃奖励");
+        }
+
+
+        NodeInfo info10 = findById("cancel");
+        if(null != info10){
+            Log.d(TAG,"FIND cancel");
+            new SFStepBuilder().addStep(info10).get().execute();
+        }else {
+            Log.d(TAG,"Not FIND cancel");
+        }
+
+
+        NodeInfo info11 = findById("content");
+        if(null != info11 && info11.getClassName().equals("android.widget.FrameLayout")){
+            Log.d(TAG,"FIND cancel");
+            NodeInfo info12 = findById("tt_top_dislike");
+            if(null == info8 && null == info12){
+                new SFStepBuilder().addStep(new Point(950,200)).get().execute();
+            }
+        }else {
+            Log.d(TAG,"Not FIND cancel");
+        }
 //        if(!isCheckedWozhidaole) {
 //            // 检查是否有青少年模式
 //            NodeInfo nodeInfo = findByText("*为呵护未成年人健康*");
