@@ -77,6 +77,9 @@ public class TaskExecutor {
                                 case Constant.PN_DIAN_TAO:
                                     script = new DianTaoFastScript(info);
                                     break;
+                                case Constant.PN_YING_KE:
+                                    script = new YingKeFastScript(info);
+                                    break;
                             }
                             if (script != null) {
                                 currentScript = script;
@@ -102,8 +105,8 @@ public class TaskExecutor {
                 public void run() {
                     final long st = System.currentTimeMillis();
                     Log.d(TAG,"st:"+st);
-//                    final long allTime = taskInfo.getHours() * 60 * 60 * 1000;
-                    final long allTime = 1 * 60* 1000;
+                    final long allTime = taskInfo.getHours() * 60 * 60 * 1000;
+//                    final long allTime = 1 * 60* 1000;
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -157,7 +160,12 @@ public class TaskExecutor {
                             Utils.sleep(1000);
                         }
                     }
-                    setPause(true);
+                    resetFlags();
+                    PackageUtils.startSelf();
+                    scriptThread.interrupt();
+                    scriptThread = null;
+                    monitorThread.interrupt();
+                    monitorThread = null;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

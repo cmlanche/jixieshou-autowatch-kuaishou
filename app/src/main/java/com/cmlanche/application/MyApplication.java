@@ -42,8 +42,8 @@ import com.sf.appupdater.log.LogInfo;
 import com.sf.appupdater.log.LogWriter;
 import com.squareup.otto.Subscribe;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.commonsdk.UMConfigure;
+//import com.umeng.analytics.MobclickAgent;
+//import com.umeng.commonsdk.UMConfigure;
 
 import java.util.Iterator;
 import java.util.List;
@@ -67,7 +67,7 @@ import static com.cmlanche.core.bus.EventType.unpause_byhand;
 
 public class MyApplication extends Application {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MyApplication";
 
     private MyAccessbilityService accessbilityService;
     protected static MyApplication appInstance;
@@ -120,7 +120,7 @@ public class MyApplication extends Application {
                 break;
             case pause_byhand:
                 if(isStarted) {
-                    setFloatText("捡豆子已被您暂停");
+                    setFloatText("已被您暂停");
                 }
                 break;
             case unpause_byhand:
@@ -153,11 +153,11 @@ public class MyApplication extends Application {
                 break;
             case roots_ready:
                 TaskExecutor.getInstance().setForcePause(false);
-                setFloatText("捡豆子重新准备就绪");
+                setFloatText("重新准备就绪");
                 break;
             case accessiblity_connected:
                 this.isFirstConnectAccessbilityService = true;
-                setFloatText("捡豆子已准备就绪，点我启动");
+                setFloatText("准备就绪，点我启动");
                 break;
             case task_finish:
                 Log.d(TAG,"当前任务完成");
@@ -171,6 +171,8 @@ public class MyApplication extends Application {
                         Log.d(TAG,"移除当前任务");
                     }
                 }
+                taskInfo1.setAppInfos(appInfos);
+                SPService.put(SPService.SP_TASK_LIST, taskInfo1);
                 if(!appInfos.isEmpty()){
                     startTask(appInfos);
                 }else {
@@ -181,8 +183,8 @@ public class MyApplication extends Application {
 
     private void initUmeng() {
         try {
-            UMConfigure.init(getApplicationContext(), "你的友盟appid", "main", UMConfigure.DEVICE_TYPE_PHONE, null);
-            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+//            UMConfigure.init(getApplicationContext(), "你的友盟appid", "main", UMConfigure.DEVICE_TYPE_PHONE, null);
+//            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
         } catch (Exception e) {
         }
     }

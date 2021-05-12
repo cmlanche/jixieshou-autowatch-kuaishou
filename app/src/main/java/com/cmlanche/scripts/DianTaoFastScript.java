@@ -26,6 +26,9 @@ public class DianTaoFastScript extends BaseScript {
 
     @Override
     protected void executeScript() {
+        if(!isTargetPkg()) {
+            return;
+        }
         Log.d(TAG,"executeScript()");
         NodeInfo info = findById("homepage_container");
         if(null != info){

@@ -8,4 +8,8 @@
     <string name="description">捡豆子可以简单方便的自动做重复性的任务，不监听您的任何隐私。可以自动刷抖音快手视频领金币、自动打卡、自动抢红包等任务。「纯娱乐不用于任何商业用途！」</string>
     <string name="contact">现在各种极速版看视频刷金币领红包的app层出不穷，闲暇时间特别爱刷，但又没有一个好的工具，刷起来特别累，还耽误时间，基于这个想法就做了个这个app，每晚挂个机就能攒个早餐,供大家娱乐。有其他自动化任务想法的请加QQ「626704292」联系我</string>
     <string name="tip_vip">开通会员将「永久」享受所有VIP任务，\n敬请期待更多好玩又有价值的任务！</string>
+
+    <string name="diantao_describe">第一步：下载点淘App,用户登录\n第二步：进入我的-元宝中心-下滑找到邀请码填写：LRHN7T5O\n第三步：提交成功得现金奖励！</string>
+    <string name="kuaishou_describe">第一步：下载快手极速版App,用户登录\n第二步：点击金蛋进入任务中心,下滑找到邀请码填写：446859698\n第三步：提交成功得现金奖励！</string>
+    <string name="douyin_describe">第一步：下载抖音极速版App,用户登录\n第二步：进入红包进入赚钱任务,下滑找到邀请码填写：8161779848\n第三步：提交成功得现金奖励！</string>
 </resources>

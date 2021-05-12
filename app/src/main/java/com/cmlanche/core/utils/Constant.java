@@ -11,6 +11,8 @@ public class Constant {
 
     public static final String PN_FENG_SHENG = "com.sfexpress.sfim";// 丰声打卡
 
+    public static final String PN_YING_KE = "com.ingkee.lite";// 映客直播极速版
+
 
     public static String KUAISHOU_SWICH  = "KS_AutoScan";
 }

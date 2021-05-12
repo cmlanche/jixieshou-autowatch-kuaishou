@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,13 +28,9 @@ import com.cmlanche.common.SPService;
 import com.cmlanche.common.leancloud.CheckUpdateTask;
 import com.cmlanche.core.service.MyAccessbilityService;
 import com.cmlanche.core.utils.AccessibilityUtils;
+import com.cmlanche.core.utils.BaseUtil;
 import com.cmlanche.core.utils.Constant;
-import com.cmlanche.core.utils.DianTaoUtil;
-import com.cmlanche.core.utils.DouYinUtil;
-import com.cmlanche.core.utils.FengShengUtil;
-import com.cmlanche.core.utils.KuaiShouUtil;
 import com.cmlanche.core.utils.SFUpdaterUtils;
-import com.cmlanche.core.utils.TouTiaoUtil;
 import com.cmlanche.floatwindow.PermissionUtil;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
@@ -57,6 +52,7 @@ import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
 import static com.cmlanche.core.utils.Constant.PN_FENG_SHENG;
 import static com.cmlanche.core.utils.Constant.PN_TOU_TIAO;
 import static com.cmlanche.core.utils.Constant.PN_DIAN_TAO;
+import static com.cmlanche.core.utils.Constant.PN_YING_KE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isInstallDouyin = false;
     private boolean isInstallTouTiao = false;
     private boolean isInstallDianTao = false;
+    private boolean isInstallYingKe = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,32 +126,39 @@ public class MainActivity extends AppCompatActivity {
                 for(AppInfo appInfo : appInfos){
                     if(appInfo.getPkgName().equals(Constant.PN_KUAI_SHOU)){
                         if(!isInstallKuaiShou){
-                            KuaiShouUtil.showDownLoadDialog(MainActivity.this);
+                            BaseUtil.showDownLoadDialog(PN_KUAI_SHOU,MainActivity.this);
+                            return;
+                        }
+
+                    }
+                    if(appInfo.getPkgName().equals(Constant.PN_YING_KE)){
+                        if(!isInstallYingKe){
+                            BaseUtil.showDownLoadDialog(PN_YING_KE,MainActivity.this);
                             return;
                         }
 
                     }
                     if(appInfo.getPkgName().equals(Constant.PN_FENG_SHENG)){
                         if(!isInstallFengSheng){
-                            FengShengUtil.showDownLoadDialog(MainActivity.this);
+                            BaseUtil.showDownLoadDialog(PN_FENG_SHENG,MainActivity.this);
                             return;
                         }
 
                     }else if(appInfo.getPkgName().equals(Constant.PN_DOU_YIN)){
                         if(!isInstallDouyin){
-                            DouYinUtil.showDownLoadDialog(MainActivity.this);
+                            BaseUtil.showDownLoadDialog(PN_DOU_YIN,MainActivity.this);
                             return;
                         }
 
                     }else if(appInfo.getPkgName().equals(Constant.PN_TOU_TIAO)){
                         if(!isInstallTouTiao){
-                            TouTiaoUtil.showDownLoadDialog(MainActivity.this);
+                            BaseUtil.showDownLoadDialog(PN_TOU_TIAO,MainActivity.this);
                             return;
                         }
 
                     }else if(appInfo.getPkgName().equals(Constant.PN_DIAN_TAO)){
                         if(!isInstallDianTao){
-                            DianTaoUtil.showDownLoadDialog(MainActivity.this);
+                            BaseUtil.showDownLoadDialog(PN_DIAN_TAO,MainActivity.this);
                             return;
                         }
 
@@ -194,6 +198,14 @@ public class MainActivity extends AppCompatActivity {
         if (hisTaskInfo == null || hisTaskInfo.getAppInfos() == null || hisTaskInfo.getAppInfos().isEmpty()) {
             List<AppInfo> appInfos = new ArrayList<>();
 
+            AppInfo appInfo0 = new AppInfo();
+            appInfo0.setAppName("映客直播极速版");
+            appInfo0.setName("映客直播极速版");
+            appInfo0.setFree(true);
+            appInfo0.setPeriod(4l);
+            appInfo0.setPkgName(Constant.PN_YING_KE);
+            appInfos.add(appInfo0);
+
             AppInfo appInfo = new AppInfo();
             appInfo.setAppName("快手极速版");
             appInfo.setName("快手极速版");
@@ -202,13 +214,13 @@ public class MainActivity extends AppCompatActivity {
             appInfo.setPkgName(Constant.PN_KUAI_SHOU);
             appInfos.add(appInfo);
 
-            appInfo = new AppInfo();
-            appInfo.setAppName("点淘(淘宝直播)");
-            appInfo.setName("点淘(淘宝直播)");
-            appInfo.setFree(true);
-            appInfo.setPeriod(4l);
-            appInfo.setPkgName(Constant.PN_DIAN_TAO);
-            appInfos.add(appInfo);
+//            appInfo = new AppInfo();
+//            appInfo.setAppName("点淘(淘宝直播)");
+//            appInfo.setName("点淘(淘宝直播)");
+//            appInfo.setFree(true);
+//            appInfo.setPeriod(4l);
+//            appInfo.setPkgName(Constant.PN_DIAN_TAO);
+//            appInfos.add(appInfo);
 
 
             TaskInfo taskInfo = new TaskInfo();
@@ -221,11 +233,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isInstallFengSheng = FengShengUtil.isInstallPackage(PN_FENG_SHENG);
-        isInstallKuaiShou = KuaiShouUtil.isInstallPackage(PN_KUAI_SHOU);
-        isInstallDouyin = DouYinUtil.isInstallPackage(PN_DOU_YIN);
-        isInstallTouTiao = TouTiaoUtil.isInstallPackage(PN_TOU_TIAO);
-        isInstallDianTao = DianTaoUtil.isInstallPackage(PN_DIAN_TAO);
+        isInstallFengSheng = BaseUtil.isInstallPackage(PN_FENG_SHENG);
+        isInstallKuaiShou = BaseUtil.isInstallPackage(PN_KUAI_SHOU);
+        isInstallDouyin = BaseUtil.isInstallPackage(PN_DOU_YIN);
+        isInstallTouTiao = BaseUtil.isInstallPackage(PN_TOU_TIAO);
+        isInstallDianTao = BaseUtil.isInstallPackage(PN_DIAN_TAO);
+        isInstallYingKe = BaseUtil.isInstallPackage(PN_YING_KE);
     }
 
     private void initData() {
@@ -339,26 +352,6 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    /**
-     * 分享的时候调用，动态申请权限
-     */
-    private void requestSharePermission() {
-        if(Build.VERSION.SDK_INT>=23){
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE};
-            ActivityCompat.requestPermissions(this,mPermissionList,123);
-        }
-    }
-
-    private boolean checkPkgValid() {
-        for(AppInfo appInfo: appInfos) {
-            if(!isAppExist(appInfo.getPkgName())) {
-                Toast.makeText(this, String.format("请先安装应用「%s」", appInfo.getAppName()), Toast.LENGTH_LONG).show();
-                return false;
-            }
-        }
-        return true;
-    }
-
     protected boolean isAppExist(String pkgName) {
         ApplicationInfo info;
         try {
@@ -406,4 +399,5 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
         });
     }
+
 }

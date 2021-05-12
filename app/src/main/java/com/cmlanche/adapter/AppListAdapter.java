@@ -73,6 +73,8 @@ public class AppListAdapter extends BaseAdapter {
             holder.icon.setImageResource(R.drawable.icon_fengsheng);
         }else if (info.getPkgName().equals(Constant.PN_DIAN_TAO)) {
             holder.icon.setImageResource(R.drawable.icon_diantao);
+        }else if (info.getPkgName().equals(Constant.PN_YING_KE)) {
+            holder.icon.setImageResource(R.drawable.icon_yingke);
         }
         return convertView;
     }
