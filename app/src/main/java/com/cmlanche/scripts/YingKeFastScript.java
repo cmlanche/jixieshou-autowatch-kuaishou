@@ -7,6 +7,7 @@ import com.cmlanche.application.MyApplication;
 import com.cmlanche.core.executor.builder.SFStepBuilder;
 import com.cmlanche.core.executor.builder.SwipStepBuilder;
 import com.cmlanche.core.search.node.NodeInfo;
+import com.cmlanche.core.utils.ActionUtils;
 import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
 
@@ -165,6 +166,7 @@ public class YingKeFastScript extends BaseScript {
         }else {
             Log.d(TAG,"Not FIND 恭喜获得奖励");
         }
+        ActionUtils.pressBack();
 //        if(!isCheckedWozhidaole) {
 //            // 检查是否有青少年模式
 //            NodeInfo nodeInfo = findByText("*为呵护未成年人健康*");

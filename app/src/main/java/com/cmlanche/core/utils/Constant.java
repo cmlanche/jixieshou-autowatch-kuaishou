@@ -15,4 +15,7 @@ public class Constant {
 
 
     public static String KUAISHOU_SWICH  = "KS_AutoScan";
+    public static int AUTO_TYPE_SCAN  = 1;//自动浏览
+    public static int AUTO_TYPE_SIGN  = 2;//自动签到
+    public static int AUTO_TYPE_ADVERT  = 3;//自动看广告
 }
