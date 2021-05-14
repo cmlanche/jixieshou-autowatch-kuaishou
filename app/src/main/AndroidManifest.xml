@@ -97,7 +97,8 @@
 
         <service
             android:name="com.cmlanche.core.service.MyAccessbilityService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:accessibilityFlags="flagReportViewIds">
             <intent-filter>
 
                 <!-- android:name必须是以下这个名字 -->
