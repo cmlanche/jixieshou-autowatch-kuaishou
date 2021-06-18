@@ -11,7 +11,6 @@ import com.cmlanche.core.executor.builder.SwipStepBuilder;
 import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.ActionUtils;
 import com.cmlanche.core.utils.Constant;
-import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +33,7 @@ public class DouyinFastScript extends BaseScript {
     private boolean isCheckedBootom;
     private int bottomMargin = 200;
 
-    private int autoType = Constant.AUTO_TYPE_SCAN;
+    private int autoType = Constant.AUTO_TYPE_ADVERT;
 
     private boolean todaySignSuccess = false;
     private boolean advertTimeArrive = false;
@@ -48,9 +47,11 @@ public class DouyinFastScript extends BaseScript {
 
     @Override
     protected void executeScript() {
+
         if (!isTargetPkg()) {
             return;
         }
+//        ScreenUtils.screenShot()
 //        startAdvertTimeCount();
         long nowTime = System.currentTimeMillis();
         if (nowTime >= nextAdvertTime) {
@@ -66,7 +67,7 @@ public class DouyinFastScript extends BaseScript {
             LogUtils.dTag(TAG, "AUTO_TYPE_SCAN");
 
             if (!todaySignSuccess) {
-                autoType = Constant.AUTO_TYPE_SIGN;
+//                autoType = Constant.AUTO_TYPE_SIGN;
                 return;
             }
             if (!isMainPage()) {
@@ -79,11 +80,10 @@ public class DouyinFastScript extends BaseScript {
             int x = MyApplication.getAppInstance().getScreenWidth() / 2 + (int) (Math.random() * 100);
             int fromY = MyApplication.getAppInstance().getScreenHeight() - bottomMargin;
             int toY = 100 + (int) (Math.random() * 100);
-            ;
             new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
 
             if (advertTimeArrive) {
-                autoType = Constant.AUTO_TYPE_ADVERT;
+//                autoType = Constant.AUTO_TYPE_ADVERT;
                 closeAdvert();
                 goPersonPage();
                 return;
@@ -92,7 +92,7 @@ public class DouyinFastScript extends BaseScript {
         } else if (autoType == Constant.AUTO_TYPE_SIGN) {
             LogUtils.dTag(TAG, "AUTO_TYPE_SIGN");
             if (todaySignSuccess) {
-                autoType = Constant.AUTO_TYPE_SCAN;
+//                autoType = Constant.AUTO_TYPE_SCAN;
                 return;
             }
             //todo 自动签到
@@ -109,20 +109,33 @@ public class DouyinFastScript extends BaseScript {
 
             //todo 签到成功
             SPUtils.getInstance().put("sign_" + TimeUtils.millis2String(TimeUtils.getNowMills(), dateFormat), true);
-            autoType = Constant.AUTO_TYPE_SCAN;
+//            autoType = Constant.AUTO_TYPE_SCAN;
 
             clickBack();
             return;
         } else if (autoType == Constant.AUTO_TYPE_ADVERT) {
+            goPersonPage();
             LogUtils.dTag(TAG, "AUTO_TYPE_ADVERT");
-            if (adverting) {
-                closeAdvert3();
+            boolean isAdvert = checkAdverting();
+            if(isAdvert){
+                adverting = isAdvert;
+                return;
+            }
+            if(adverting && !isAdvert){
+                clickBack();
+                adverting = isAdvert;
+                return;
+            }
+//            if (adverting) {
+//                closeAdvert3();
+//                return;
+//            }
+            if(!adverting && !isPersonPage()){
+                clickBack();
                 return;
             }
             //todo 自动看广告
             closeAdvert();
-
-            goPersonPage();
 
             closeAdvert1();
 
@@ -152,6 +165,25 @@ public class DouyinFastScript extends BaseScript {
 
 
     }
+
+    private boolean isPersonPage() {
+        NodeInfo nodeInfo1 = findByText("现金收益");
+        if (nodeInfo1 != null) {
+            LogUtils.dTag(TAG, "找到现金收益");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkAdverting() {
+        NodeInfo nodeInfo1 = findByText("后可领取金币");
+        if (nodeInfo1 != null) {
+            LogUtils.dTag(TAG, "找到后可领取金币");
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     protected int getMinSleepTime() {
@@ -200,6 +232,12 @@ public class DouyinFastScript extends BaseScript {
             isCheckedBootom = true;
 //            Utils.sleep(1000);
         }
+
+        NodeInfo nodeInfo1 = findByText("立即签到");
+        if (nodeInfo1 != null) {
+            LogUtils.dTag(TAG, "立即签到");
+            ActionUtils.click(nodeInfo1);
+        }
     }
 
     //个人中心页面弹出框关闭
@@ -216,9 +254,9 @@ public class DouyinFastScript extends BaseScript {
         NodeInfo nodeInfo1 = findByText("看广告视频再赚");
         if (nodeInfo1 != null) {
             LogUtils.dTag(TAG, "click 看广告视频再赚");
-            ActionUtils.click(nodeInfo);
+            ActionUtils.click(nodeInfo1);
             adverting = true;
-            startAdverting();
+//            startAdverting();
         }
     }
 
@@ -233,7 +271,7 @@ public class DouyinFastScript extends BaseScript {
     private void closeAdvert3() {
         LogUtils.dTag(TAG, "closeAdvert3");
         //关闭该页面各种弹出框
-        NodeInfo nodeInfo = findByText("继续观看，领取奖励");
+        NodeInfo nodeInfo = findByText("继续观看");
         if (nodeInfo != null) {
             LogUtils.dTag(TAG, "click 继续观看，领取奖励");
             ActionUtils.click(nodeInfo);
@@ -251,8 +289,8 @@ public class DouyinFastScript extends BaseScript {
 //            return;
 ////            Utils.sleep(1000);
 //        }
-        if (nodeInfo2 != null) {
-            new SFStepBuilder().addStep(nodeInfo2).get().execute();
+        if (nodeInfo1 != null) {
+            new SFStepBuilder().addStep(nodeInfo1).get().execute();
             LogUtils.dTag(TAG, "click goPersonPage");
             return;
 //            Utils.sleep(1000);
@@ -279,9 +317,13 @@ public class DouyinFastScript extends BaseScript {
         LogUtils.dTag(TAG, "clickBack");
         ActionUtils.pressBack();
 //        Utils.sleep(1000);
+        NodeInfo nodeInfo1 = findByText("再看一个获取");
+        if (nodeInfo1 != null) {
+            ActionUtils.click(nodeInfo1);
+        }
     }
 
-    boolean goAdvertPage = false;
+//    boolean goAdvertPage = false;
 
     //看广告
     private void clickAdvert() {
@@ -290,54 +332,62 @@ public class DouyinFastScript extends BaseScript {
         LogUtils.dTag(TAG, nodeInfo1 == null ? "找不到看广告赚金币" : "找到看广告赚金币");
         if (nodeInfo1 != null) {
             LogUtils.dTag(TAG, "click clickAdvert");
-            new SFStepBuilder().addStep(new Point(850, 1180)).get().execute();
-            goAdvertPage = true;
-//            clickBack();
+            new SFStepBuilder().addStep(new Point(850, nodeInfo1.getRect().centerY())).get().execute();
+//            goAdvertPage = true;
             return;
-//            Utils.sleep(1000);
         }
-        if (nodeInfo1 == null) {
-            if (goAdvertPage) {
-                goAdvertPage = false;
-                adverting = true;
-                startAdverting();
 
-            }
+        NodeInfo nodeInfo2 = findByText("再看一个获取");
+        LogUtils.dTag(TAG, nodeInfo2 == null ? "找不到再看一个获取" : "找到再看一个获取");
+        if (nodeInfo2 != null) {
+            LogUtils.dTag(TAG, "click clickAdvert");
+            ActionUtils.click(nodeInfo2);
+//            goAdvertPage = true;
+            return;
         }
+
+//        if (nodeInfo1 == null) {
+//            if (goAdvertPage) {
+//                goAdvertPage = false;
+//                adverting = true;
+//                startAdverting();
+//
+//            }
+//        }
 
     }
 
-    private Disposable mDisposable;
-    private Disposable mDisposable1;
-
-    public void startAdverting() {
-        LogUtils.dTag(TAG, "startAdverting");
-        if (mDisposable == null || mDisposable.isDisposed()) {
-            mDisposable = Observable.interval(0, 1, TimeUnit.MINUTES).take(2).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
-                @Override
-                public void accept(Long aLong) throws Exception {
-                    LogUtils.dTag(TAG, "startAdverting accept" + aLong);
-                    if (aLong == 1) {
-                        stopAdverting();
-                    }
-                }
-            });
-        }
-    }
-
-
-    public void stopAdverting() {
-        LogUtils.dTag(TAG, "stopAdverting");
-        if (mDisposable != null && !mDisposable.isDisposed()) {
-            mDisposable.dispose();
-            adverting = false;
-            clickBack();
-            autoType = Constant.AUTO_TYPE_SCAN;
-            long nowTime = System.currentTimeMillis();
-            nextAdvertTime = nowTime + 1000 * 60 * 11;
-            advertTimeArrive = false;
-        }
-    }
+//    private Disposable mDisposable;
+//    private Disposable mDisposable1;
+//
+//    public void startAdverting() {
+//        LogUtils.dTag(TAG, "startAdverting");
+//        if (mDisposable == null || mDisposable.isDisposed()) {
+//            mDisposable = Observable.interval(0, 1, TimeUnit.MINUTES).take(2).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
+//                @Override
+//                public void accept(Long aLong) throws Exception {
+//                    LogUtils.dTag(TAG, "startAdverting accept" + aLong);
+//                    if (aLong == 1) {
+//                        stopAdverting();
+//                    }
+//                }
+//            });
+//        }
+//    }
+//
+//
+//    public void stopAdverting() {
+//        LogUtils.dTag(TAG, "stopAdverting");
+//        if (mDisposable != null && !mDisposable.isDisposed()) {
+//            mDisposable.dispose();
+//            adverting = false;
+//            clickBack();
+////            autoType = Constant.AUTO_TYPE_SCAN;
+//            long nowTime = System.currentTimeMillis();
+//            nextAdvertTime = nowTime + 1000 * 60 * 11;
+//            advertTimeArrive = false;
+//        }
+//    }
 
 //    public void startAdvertTimeCount() {
 //        LogUtils.dTag(TAG,"startAdvertTimeCount");
@@ -351,16 +401,17 @@ public class DouyinFastScript extends BaseScript {
 //            });
 //        }
 //    }
-
-    public void stopAdvertTimeCount() {
-        LogUtils.dTag(TAG, "stopAdverting");
-        if (mDisposable1 != null && !mDisposable1.isDisposed()) {
-            mDisposable1.dispose();
-            advertTimeArrive = false;
-        }
-    }
+//
+//    public void stopAdvertTimeCount() {
+//        LogUtils.dTag(TAG, "stopAdverting");
+//        if (mDisposable1 != null && !mDisposable1.isDisposed()) {
+//            mDisposable1.dispose();
+//            advertTimeArrive = false;
+//        }
+//    }
 
     private boolean isMainPage() {
+        LogUtils.dTag(TAG, "isMainPage");
 //        NodeInfo nodeInfo = findById("bbk");//左上角直播图标
 //        LogUtils.dTag(TAG, nodeInfo == null ? "not find bbk" : "find bbk");
 //        NodeInfo nodeInfo1 = findById("bzj");//最下面菜单栏

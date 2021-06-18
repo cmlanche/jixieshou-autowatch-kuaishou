@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kotlin.jvm.internal.PackageReference;
+
 public class Utils {
 
     public final static String tag = "Jixieshou -" + Version.ver;
@@ -146,8 +148,13 @@ public class Utils {
         }
         return (double) matchCount / (double) maxLen;
     }
-    
+
+    private static String TAG = "Utils";
     public static boolean textMatch(String patternStr, String text) {
+        Log.d(TAG,"patternStr:"+patternStr + " text:"+text);
+        if(text.contains(patternStr)){
+            return true;
+        }
         if (!"".equals(patternStr) && patternStr.startsWith(Utils.REGULAR)
                 && patternStr.endsWith(Utils.REGULAR)
                 && patternStr.length() >= 2) {
