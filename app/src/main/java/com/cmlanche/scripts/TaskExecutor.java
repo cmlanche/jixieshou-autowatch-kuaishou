@@ -63,7 +63,7 @@ public class TaskExecutor {
                             IScript script = null;
                             switch (info.getPkgName()) {
                                 case Constant.PN_DOU_YIN:
-                                    script = new DouyinFastScript(info);
+                                    script = new DouyinFastFuDaiScript(info);
                                     break;
                                 case Constant.PN_KUAI_SHOU:
                                     script = new KuaishouFastScript(info);

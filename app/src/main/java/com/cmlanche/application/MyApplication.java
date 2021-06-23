@@ -78,6 +78,15 @@ public class MyApplication extends Application {
     private MainActivity mainActivity;
     private boolean isFirstConnectAccessbilityService = false;
     private boolean isStarted = false;
+    private String baby;
+
+    public String getBaby() {
+        return baby;
+    }
+
+    public void setBaby(String baby) {
+        this.baby = baby;
+    }
 
     @Override
     public void onCreate() {
@@ -148,7 +157,7 @@ public class MyApplication extends Application {
                 }
                 break;
             case no_roots_alert:
-                TaskExecutor.getInstance().setForcePause(true);
+//                TaskExecutor.getInstance().setForcePause(true);
                 setFloatText("无法获取界面信息，请重启手机！");
                 break;
             case roots_ready:

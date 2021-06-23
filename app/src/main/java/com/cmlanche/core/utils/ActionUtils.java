@@ -3,9 +3,11 @@ package com.cmlanche.core.utils;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.os.Build;
 
 import com.cmlanche.application.MyApplication;
+import com.cmlanche.core.executor.builder.SwipStepBuilder;
 import com.cmlanche.core.search.node.NodeInfo;
 
 public class ActionUtils {
@@ -81,5 +83,21 @@ public class ActionUtils {
     public static boolean pressBack() {
         return MyApplication.getAppInstance().getAccessbilityService()
                 .performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+    }
+
+    public static void shanghua(){
+        int x = MyApplication.getAppInstance().getScreenWidth() / 2 + (int)(Math.random()*100);
+        int margin = 100+ (int)(Math.random()*100);
+        int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;
+        int toY = margin;
+        new SwipStepBuilder().setPoints(new Point(x, toY), new Point(x, fromY)).get().execute();
+    }
+
+    public static void xiahua(){
+        int x = MyApplication.getAppInstance().getScreenWidth() / 2 + (int)(Math.random()*100);
+        int margin = 100+ (int)(Math.random()*100);
+        int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;
+        int toY = margin;
+        new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
     }
 }

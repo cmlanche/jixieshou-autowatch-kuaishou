@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private CardView cardView;
+    private EditText edit_baby;
     private ListView taskListView;
     private FloatingActionButton fab;
     private TaskListAdapter taskListAdapter;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         SFUpdaterUtils.checkVersion(this);
 
+        edit_baby = findViewById(R.id.edit_baby);
         cardView = findViewById(R.id.newTaskCardView);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+                MyApplication.getAppInstance().setBaby(edit_baby.getEditableText().toString());
                 startService(new Intent(getApplicationContext(), MyAccessbilityService.class));
                 MyApplication.getAppInstance().startTask(appInfos);
             }
