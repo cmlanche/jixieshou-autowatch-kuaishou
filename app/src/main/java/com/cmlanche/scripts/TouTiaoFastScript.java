@@ -1,17 +1,15 @@
 package com.cmlanche.scripts;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.cmlanche.core.executor.builder.SFStepBuilder;
 import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.ActionUtils;
 import com.cmlanche.model.AppInfo;
 
 public class TouTiaoFastScript extends BaseScript {
+    private String TAG = this.getClass().getSimpleName();
 
     // 是否有检查"我知道了"
     private boolean isCheckedWozhidaole;
-    private String TAG = this.getClass().getSimpleName();
-    private boolean adverting = false;
+    private boolean isFasting = false;
 
     public TouTiaoFastScript(AppInfo appInfo) {
         super(appInfo);
@@ -19,77 +17,37 @@ public class TouTiaoFastScript extends BaseScript {
 
     @Override
     protected void executeScript() {
-        if(!isCheckedWozhidaole) {
+        if (!isCheckedWozhidaole) {
             // 检查是否有青少年模式
             NodeInfo nodeInfo = findByText("*为呵护未成年人健康*");
-            if(nodeInfo != null) {
+            if (nodeInfo != null) {
                 nodeInfo = findByText("我知道了");
-                if(nodeInfo != null) {
+                if (nodeInfo != null) {
                     isCheckedWozhidaole = true;
                     ActionUtils.click(nodeInfo);
                 }
             }
         }
 
-        if (goPersonPage()) ;
-
-        boolean isAdvert = isAdverting();
-        if (isAdvert) {
-            closeAdvert3();
-            adverting = isAdvert;
-            return;
-        }
-        if (adverting && !isAdvert) {
-            clickBack();
-            adverting = isAdvert;
+        if (clickContent("万次播放")){
+            isFasting = true;
             return;
         }
 
-        if (clickId("permission_allow_button")) return;
-
-        if (clickContent("仅使用期间允许")) return;
-
-        if (clickContent("立即预约")) return;
-
-        if (clickContent("领福利")) return;
-        if (clickContent("开心收下")) return;
-
-
-//        if (clickContent("打开签到提醒")) return;
-
-        if (clickContent("再看一个获得")) return;
-
-        if (clickContent("视频再领")) return;
-
-        clickBack();
-
-        //[750,1890][1038,2181]
-        if (clickXY(850,2000)) return;
-
-
-//        int x = MyApplication.getAppInstance().getScreenWidth() / 2;
-//        int margin = 100;
-//        int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;
-//        int toY = margin;
-//        new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
-    }
-
-    //广告页面弹出框关闭
-    private void closeAdvert3() {
-        //关闭该页面各种弹出框
-        if(clickContent("继续观看")) return ;
-    }
-
-    private boolean isAdverting() {
-        if(findContent("s") && findContent("关闭")){
-            return true;
+        if(isFasting){
+            scrollUp();
+            return;
         }
-        return false;
+
+        if (goPersonPage()) return;
+
+        if (clickContent("看视频赚钱")) return;
+
     }
 
     //跳转个人中心
     private boolean goPersonPage() {
-        if(clickId("as0")){
+        if (clickId("acu")) {
             return true;
         }
         return false;
@@ -97,18 +55,18 @@ public class TouTiaoFastScript extends BaseScript {
 
     @Override
     protected int getMinSleepTime() {
-        return 5000;
+        return 4000;
     }
 
     @Override
     protected int getMaxSleepTime() {
-        return 5000;
+        return 6000;
     }
 
     @Override
     public boolean isDestinationPage() {
         // 检查当前包名是否有本年应用
-        if(!isTargetPkg()) {
+        if (!isTargetPkg()) {
             return false;
         }
         return true;

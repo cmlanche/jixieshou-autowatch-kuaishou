@@ -1,8 +1,11 @@
 package com.cmlanche.scripts;
 
+import android.graphics.Point;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.cmlanche.application.MyApplication;
 import com.cmlanche.common.PackageUtils;
+import com.cmlanche.core.executor.builder.SwipStepBuilder;
 import com.cmlanche.core.search.FindById;
 import com.cmlanche.core.search.FindByText;
 import com.cmlanche.core.search.node.NodeInfo;
@@ -185,5 +188,13 @@ public abstract class BaseScript implements IScript {
     public void clickBack() {
         LogUtils.dTag(TAG, "clickBack");
         ActionUtils.pressBack();
+    }
+
+    public void scrollUp(){
+        int x = MyApplication.getAppInstance().getScreenWidth() / 2 + (int)(Math.random()*100);
+        int margin = 100+ (int)(Math.random()*100);
+        int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;
+        int toY = margin;
+        new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
     }
 }

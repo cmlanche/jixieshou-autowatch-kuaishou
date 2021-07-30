@@ -1,19 +1,13 @@
 package com.cmlanche.scripts;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.util.Log;
-import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.cmlanche.application.MyApplication;
 import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.ActionUtils;
 import com.cmlanche.core.utils.Constant;
-import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
 
 public class DouyinFastShopingScript extends BaseScript {
@@ -42,9 +36,6 @@ public class DouyinFastShopingScript extends BaseScript {
         }
 
         if (autoType == Constant.AUTO_TYPE_ADVERT) {
-//            NodeInfo node1= findByText("dfadfa");
-//            NodeInfo node2= findById("fdsafdsaf");
-//            return;
             if(!showMarker){
                 LogUtils.dTag(TAG, "点击购物车");
                 ActionUtils.click(650, 2300);
