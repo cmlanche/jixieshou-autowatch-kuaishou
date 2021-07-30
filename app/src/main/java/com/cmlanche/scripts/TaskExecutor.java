@@ -62,7 +62,7 @@ public class TaskExecutor {
                                 case Constant.PN_DOU_YIN:
                                     if(info.getName().equals("抖音极速版-秒杀")){
                                         script = new DouyinFastShopingScript(info);
-                                    }else if(info.getName().equals("抖音极速版-看广告")){
+                                    }else if(info.getName().equals("抖音极速版-刷广告")){
                                         script = new DouyinFastAdvertScript(info);
                                     }else if(info.getName().equals("")){
 
@@ -72,7 +72,13 @@ public class TaskExecutor {
                                     script = new KuaishouFastScript(info);
                                     break;
                                 case Constant.PN_TOU_TIAO:
-                                    script = new TouTiaoFastScript(info);
+                                    if(info.getName().equals("今日头条极速版-刷视频")){
+                                        script = new TouTiaoFastScript(info);
+                                    }else if(info.getName().equals("今日头条极速版-刷广告")){
+                                        script = new TouTiaoAdvertScript(info);
+                                    }else if(info.getName().equals("")){
+
+                                    }
                                     break;
                                 case Constant.PN_FENG_SHENG:
                                     script = new FengShengFastScript(info);

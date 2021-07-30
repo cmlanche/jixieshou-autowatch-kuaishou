@@ -144,12 +144,6 @@ public class DouyinFastAdvertScript extends BaseScript {
         return false;
     }
 
-    //返回
-    private void clickBack() {
-        LogUtils.dTag(TAG, "clickBack");
-        ActionUtils.pressBack();
-    }
-
     //看广告
     private boolean clickAdvert() {
         LogUtils.dTag(TAG, "找广告");
@@ -166,17 +160,4 @@ public class DouyinFastAdvertScript extends BaseScript {
         return false;
     }
 
-    /**
-     * 点击 content
-     * @return
-     */
-    private boolean clickContent(String content) {
-        NodeInfo nodeInfo = findByText(content);
-        if (nodeInfo != null) {
-            LogUtils.dTag(TAG, "click: "+content);
-            ActionUtils.click(nodeInfo);
-            return true;
-        }
-        return false;
-    }
 }

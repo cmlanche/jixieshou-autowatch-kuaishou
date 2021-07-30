@@ -111,11 +111,24 @@ public class NewOrEditTaskActivity extends BaseActivity {
 
 //        AVObject testObject = new AVObject("task_list");
 //        AppInfo appInfo = new AppInfo();
-//        appInfo.setName("抖音极速版-秒杀");
-//        appInfo.setAppName("抖音极速版App");
+//        appInfo.setName("今日头条极速版-看视频");
+//        appInfo.setAppName("今日头条极速版App");
 //        appInfo.setFree(true);
-//        appInfo.setPeriod(1l);
-//        appInfo.setPkgName(Constant.PN_DOU_YIN);
+//        appInfo.setPeriod(4l);
+//        appInfo.setPkgName(Constant.PN_TOU_TIAO);
+//        testObject.put("name", appInfo.getName());
+//        testObject.put("isFree", appInfo.isFree());
+//        testObject.put("period", appInfo.getPeriod());
+//        testObject.put("pkgName", appInfo.getPkgName());
+//        testObject.saveInBackground().blockingSubscribe();
+
+//        AVObject testObject = new AVObject("task_list");
+//        AppInfo appInfo = new AppInfo();
+//        appInfo.setName("今日头条极速版-看视频");
+//        appInfo.setAppName("今日头条极速版App");
+//        appInfo.setFree(true);
+//        appInfo.setPeriod(4l);
+//        appInfo.setPkgName(Constant.PN_TOU_TIAO);
 //        testObject.put("name", appInfo.getName());
 //        testObject.put("isFree", appInfo.isFree());
 //        testObject.put("period", appInfo.getPeriod());

@@ -1,19 +1,17 @@
 package com.cmlanche.scripts;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.cmlanche.core.executor.builder.SFStepBuilder;
 import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.ActionUtils;
 import com.cmlanche.model.AppInfo;
 
-public class TouTiaoFastScript extends BaseScript {
+public class TouTiaoAdvertScript extends BaseScript {
 
     // 是否有检查"我知道了"
     private boolean isCheckedWozhidaole;
     private String TAG = this.getClass().getSimpleName();
     private boolean adverting = false;
 
-    public TouTiaoFastScript(AppInfo appInfo) {
+    public TouTiaoAdvertScript(AppInfo appInfo) {
         super(appInfo);
     }
 
