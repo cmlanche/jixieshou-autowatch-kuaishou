@@ -64,7 +64,7 @@ public class TaskExecutor {
                                         script = new DouyinFastShopingScript(info);
                                     }else if(info.getName().equals("抖音极速版-刷广告")){
                                         script = new DouyinFastAdvertScript(info);
-                                    }else if(info.getName().equals("")){
+                                    }else if(info.getName().equals("抖音极速版-刷视频")){
 
                                     }
                                     break;

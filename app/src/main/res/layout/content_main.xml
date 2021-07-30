@@ -81,9 +81,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:text="sfsldjfl"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            android:textSize="16sp" />
 
 
         <androidx.cardview.widget.CardView

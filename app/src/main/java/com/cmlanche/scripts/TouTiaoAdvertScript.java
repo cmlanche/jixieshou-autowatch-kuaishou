@@ -49,6 +49,8 @@ public class TouTiaoAdvertScript extends BaseScript {
 
         if (clickContent("立即预约")) return;
 
+        if (clickContent("新人金币礼包")) ;
+
         if (clickContent("领福利")) return;
         if (clickContent("开心收下")) return;
 
@@ -64,12 +66,6 @@ public class TouTiaoAdvertScript extends BaseScript {
         //[750,1890][1038,2181]
         if (clickXY(850,2000)) return;
 
-
-//        int x = MyApplication.getAppInstance().getScreenWidth() / 2;
-//        int margin = 100;
-//        int fromY = MyApplication.getAppInstance().getScreenHeight() - margin;
-//        int toY = margin;
-//        new SwipStepBuilder().setPoints(new Point(x, fromY), new Point(x, toY)).get().execute();
     }
 
     //广告页面弹出框关闭
