@@ -16,9 +16,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.Calendar;
 import java.util.List;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import static com.cmlanche.core.bus.EventType.goto_target_app;
 import static com.cmlanche.core.bus.EventType.pause_becauseof_not_destination_page;
 
 /**
@@ -63,7 +60,13 @@ public class TaskExecutor {
                             IScript script = null;
                             switch (info.getPkgName()) {
                                 case Constant.PN_DOU_YIN:
-                                    script = new DouyinFastFuDaiScript(info);
+                                    if(info.getName().equals("抖音极速版-秒杀")){
+                                        script = new DouyinFastShopingScript(info);
+                                    }else if(info.getName().equals("抖音极速版-看广告")){
+                                        script = new DouyinFastAdvertScript(info);
+                                    }else if(info.getName().equals("")){
+
+                                    }
                                     break;
                                 case Constant.PN_KUAI_SHOU:
                                     script = new KuaishouFastScript(info);

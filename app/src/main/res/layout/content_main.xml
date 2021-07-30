@@ -161,14 +161,14 @@
                 android:id="@+id/edit_baby"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                android:padding="10dp"
-                android:textColor="#ffffff"
-                android:text="姗姗，鲫鱼竿"
                 android:background="@color/color_393939"
-                />
+                android:padding="10dp"
+                android:text="姗姗，鲫鱼竿"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/startBtn"

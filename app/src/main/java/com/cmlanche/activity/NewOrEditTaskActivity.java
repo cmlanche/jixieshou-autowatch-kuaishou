@@ -111,17 +111,29 @@ public class NewOrEditTaskActivity extends BaseActivity {
 
 //        AVObject testObject = new AVObject("task_list");
 //        AppInfo appInfo = new AppInfo();
-//        appInfo.setName("点淘刷金币");
-//        appInfo.setAppName("点淘App");
+//        appInfo.setName("抖音极速版-秒杀");
+//        appInfo.setAppName("抖音极速版App");
 //        appInfo.setFree(true);
 //        appInfo.setPeriod(1l);
-//        appInfo.setPkgName(Constant.PN_DIAN_TAO);
-//        appInfo.setUuid("1116");
+//        appInfo.setPkgName(Constant.PN_DOU_YIN);
 //        testObject.put("name", appInfo.getName());
 //        testObject.put("isFree", appInfo.isFree());
 //        testObject.put("period", appInfo.getPeriod());
 //        testObject.put("pkgName", appInfo.getPkgName());
 //        testObject.saveInBackground().blockingSubscribe();
+//
+//        AVObject testObject1 = new AVObject("task_list");
+//        AppInfo appInfo1 = new AppInfo();
+//        appInfo1.setName("抖音极速版-看广告");
+//        appInfo1.setAppName("抖音极速版App");
+//        appInfo1.setFree(true);
+//        appInfo1.setPeriod(1l);
+//        appInfo1.setPkgName(Constant.PN_DOU_YIN);
+//        testObject1.put("name", appInfo1.getName());
+//        testObject1.put("isFree", appInfo1.isFree());
+//        testObject1.put("period", appInfo1.getPeriod());
+//        testObject1.put("pkgName", appInfo1.getPkgName());
+//        testObject1.saveInBackground().blockingSubscribe();
     }
 
     @Override

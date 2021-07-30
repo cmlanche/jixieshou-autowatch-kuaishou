@@ -1,6 +1,5 @@
 package com.cmlanche.activity;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -9,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -46,13 +44,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
 
-import static com.cmlanche.core.utils.Constant.PN_DOU_YIN;
-import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
-import static com.cmlanche.core.utils.Constant.PN_FENG_SHENG;
-import static com.cmlanche.core.utils.Constant.PN_TOU_TIAO;
 import static com.cmlanche.core.utils.Constant.PN_DIAN_TAO;
+import static com.cmlanche.core.utils.Constant.PN_DOU_YIN;
+import static com.cmlanche.core.utils.Constant.PN_FENG_SHENG;
+import static com.cmlanche.core.utils.Constant.PN_KUAI_SHOU;
+import static com.cmlanche.core.utils.Constant.PN_TOU_TIAO;
 import static com.cmlanche.core.utils.Constant.PN_YING_KE;
 
 public class MainActivity extends AppCompatActivity {
@@ -126,42 +123,42 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                for(AppInfo appInfo : appInfos){
-                    if(appInfo.getPkgName().equals(Constant.PN_KUAI_SHOU)){
-                        if(!isInstallKuaiShou){
-                            BaseUtil.showDownLoadDialog(PN_KUAI_SHOU,MainActivity.this);
+                for (AppInfo appInfo : appInfos) {
+                    if (appInfo.getPkgName().equals(Constant.PN_KUAI_SHOU)) {
+                        if (!isInstallKuaiShou) {
+                            BaseUtil.showDownLoadDialog(PN_KUAI_SHOU, MainActivity.this);
                             return;
                         }
 
                     }
-                    if(appInfo.getPkgName().equals(Constant.PN_YING_KE)){
-                        if(!isInstallYingKe){
-                            BaseUtil.showDownLoadDialog(PN_YING_KE,MainActivity.this);
+                    if (appInfo.getPkgName().equals(Constant.PN_YING_KE)) {
+                        if (!isInstallYingKe) {
+                            BaseUtil.showDownLoadDialog(PN_YING_KE, MainActivity.this);
                             return;
                         }
 
                     }
-                    if(appInfo.getPkgName().equals(Constant.PN_FENG_SHENG)){
-                        if(!isInstallFengSheng){
-                            BaseUtil.showDownLoadDialog(PN_FENG_SHENG,MainActivity.this);
+                    if (appInfo.getPkgName().equals(Constant.PN_FENG_SHENG)) {
+                        if (!isInstallFengSheng) {
+                            BaseUtil.showDownLoadDialog(PN_FENG_SHENG, MainActivity.this);
                             return;
                         }
 
-                    }else if(appInfo.getPkgName().equals(Constant.PN_DOU_YIN)){
-                        if(!isInstallDouyin){
-                            BaseUtil.showDownLoadDialog(PN_DOU_YIN,MainActivity.this);
+                    } else if (appInfo.getPkgName().equals(Constant.PN_DOU_YIN)) {
+                        if (!isInstallDouyin) {
+                            BaseUtil.showDownLoadDialog(PN_DOU_YIN, MainActivity.this);
                             return;
                         }
 
-                    }else if(appInfo.getPkgName().equals(Constant.PN_TOU_TIAO)){
-                        if(!isInstallTouTiao){
-                            BaseUtil.showDownLoadDialog(PN_TOU_TIAO,MainActivity.this);
+                    } else if (appInfo.getPkgName().equals(Constant.PN_TOU_TIAO)) {
+                        if (!isInstallTouTiao) {
+                            BaseUtil.showDownLoadDialog(PN_TOU_TIAO, MainActivity.this);
                             return;
                         }
 
-                    }else if(appInfo.getPkgName().equals(Constant.PN_DIAN_TAO)){
-                        if(!isInstallDianTao){
-                            BaseUtil.showDownLoadDialog(PN_DIAN_TAO,MainActivity.this);
+                    } else if (appInfo.getPkgName().equals(Constant.PN_DIAN_TAO)) {
+                        if (!isInstallDianTao) {
+                            BaseUtil.showDownLoadDialog(PN_DIAN_TAO, MainActivity.this);
                             return;
                         }
 
@@ -324,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 删除某个任务
      *
-     * @param uuid 替换某任务
+     * @param uuid    替换某任务
      * @param appInfo
      */
     private void updateAppInfo(String uuid, AppInfo appInfo) {
@@ -360,15 +357,14 @@ public class MainActivity extends AppCompatActivity {
         ApplicationInfo info;
         try {
             info = getPackageManager().getApplicationInfo(pkgName, 0);
-        }
-        catch (PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             info = null;
         }
         return info != null;
     }
 
-    private void showExitDialog(){
+    private void showExitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("注意");
         builder.setMessage("确定要退出捡豆任务吗？");

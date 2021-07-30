@@ -1,6 +1,14 @@
 package com.cmlanche.scripts;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.util.Log;
+import android.view.View;
+
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.cmlanche.application.MyApplication;
 import com.cmlanche.core.search.node.NodeInfo;
 import com.cmlanche.core.utils.ActionUtils;
@@ -8,12 +16,19 @@ import com.cmlanche.core.utils.Constant;
 import com.cmlanche.core.utils.Utils;
 import com.cmlanche.model.AppInfo;
 
-public class DouyinFastFuDaiScript extends BaseScript {
+public class DouyinFastShopingScript extends BaseScript {
     private String TAG = this.getClass().getSimpleName();
+    private Context context;
 
     private int autoType = Constant.AUTO_TYPE_ADVERT;
+    private int x;
+    private int y;
 
-    public DouyinFastFuDaiScript(AppInfo appInfo) {
+    public DouyinFastShopingScript(AppInfo appInfo) {
+        super(appInfo);
+    }
+
+    public DouyinFastShopingScript(Context context, AppInfo appInfo) {
         super(appInfo);
     }
 
@@ -66,13 +81,22 @@ public class DouyinFastFuDaiScript extends BaseScript {
 
             NodeInfo nodeInfo = findByText(MyApplication.getAppInstance().getBaby());
             if (nodeInfo != null) {
-                LogUtils.dTag(TAG, "点击抢购 X:" + (nodeInfo.getRect().right - 100) + " Y:" + (nodeInfo.getRect().top + 246));
-                ActionUtils.click(nodeInfo.getRect().right - 100, nodeInfo.getRect().top + 246);
+                x = nodeInfo.getRect().right - 100;
+                y = nodeInfo.getRect().top + 246;
+                loadBitmapFromView();
+                if(checkButtonIsEnable(x,y)){
+                    LogUtils.dTag(TAG, "点击抢购 X:" + (nodeInfo.getRect().right - 100) + " Y:" + (nodeInfo.getRect().top + 246));
+                    ActionUtils.click(nodeInfo.getRect().right - 100, nodeInfo.getRect().top + 246);
+                    clickBaby = true;
+                }
                 clickBaby = true;
-                Utils.sleep(60);
                 return;
             }
         }
+    }
+
+    private boolean checkButtonIsEnable(int x, int y) {
+        return false;
     }
 
     @Override
@@ -94,4 +118,15 @@ public class DouyinFastFuDaiScript extends BaseScript {
         return true;
     }
 
+    public Bitmap loadBitmapFromView() {
+        Bitmap screenshot;
+        screenshot = Bitmap.createBitmap(MyApplication.getAppInstance().getScreenWidth(), MyApplication.getAppInstance().getScreenHeight(), Bitmap.Config.ARGB_4444);
+//        Canvas canvas = new Canvas(screenshot);
+//        canvas.translate(-v.getScrollX(), -v.getScrollY());//我们在用滑动View获得它的Bitmap时候，获得的是整个View的区域（包括隐藏的），如果想得到当前区域，需要重新定位到当前可显示的区域
+//        v.draw(canvas);// 将 view 画到画布上
+        int color = screenshot.getPixel(x,y);
+        LogUtils.dTag(TAG,"color:"+color);
+        screenshot.recycle();
+        return screenshot;
+    }
 }

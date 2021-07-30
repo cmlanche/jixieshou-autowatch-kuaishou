@@ -1,9 +1,7 @@
 package com.cmlanche.application;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -22,7 +20,6 @@ import com.cmlanche.common.leancloud.InitTask;
 import com.cmlanche.core.bus.BusEvent;
 import com.cmlanche.core.bus.BusManager;
 import com.cmlanche.core.service.MyAccessbilityService;
-import com.cmlanche.core.utils.AccessibilityUtil;
 import com.cmlanche.core.utils.Constant;
 import com.cmlanche.core.utils.Logger;
 import com.cmlanche.core.utils.SFUpdaterUtils;
@@ -30,26 +27,19 @@ import com.cmlanche.core.utils.Utils;
 import com.cmlanche.floatwindow.FloatWindow;
 import com.cmlanche.floatwindow.MoveType;
 import com.cmlanche.floatwindow.PermissionListener;
-import com.cmlanche.floatwindow.Screen;
 import com.cmlanche.floatwindow.ViewStateListener;
 import com.cmlanche.jixieshou.BuildConfig;
 import com.cmlanche.jixieshou.R;
 import com.cmlanche.model.AppInfo;
 import com.cmlanche.model.TaskInfo;
 import com.cmlanche.scripts.TaskExecutor;
-import com.cmlanche.widget.PointView;
 import com.sf.appupdater.log.LogInfo;
 import com.sf.appupdater.log.LogWriter;
 import com.squareup.otto.Subscribe;
 import com.tencent.bugly.crashreport.CrashReport;
-//import com.umeng.analytics.MobclickAgent;
-//import com.umeng.commonsdk.UMConfigure;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import cn.leancloud.AVOSCloud;
 
@@ -65,10 +55,12 @@ import static com.cmlanche.core.bus.EventType.start_task;
 import static com.cmlanche.core.bus.EventType.task_finish;
 import static com.cmlanche.core.bus.EventType.unpause_byhand;
 
+//import com.umeng.analytics.MobclickAgent;
+//import com.umeng.commonsdk.UMConfigure;
+
 public class MyApplication extends Application {
 
     private static final String TAG = "MyApplication";
-
     private MyAccessbilityService accessbilityService;
     protected static MyApplication appInstance;
     private int screenWidth;
@@ -128,7 +120,7 @@ public class MyApplication extends Application {
                 setFloatText("总执行时间：" + Utils.getTimeDescription(time));
                 break;
             case pause_byhand:
-                if(isStarted) {
+                if (isStarted) {
                     setFloatText("已被您暂停");
                 }
                 break;
@@ -138,7 +130,7 @@ public class MyApplication extends Application {
                 }
                 break;
             case pause_becauseof_not_destination_page:
-                if(isStarted) {
+                if (isStarted) {
                     // String reason = (String) event.getData();
                     setFloatText("已暂停(非任务页面)");
                 }
@@ -149,9 +141,9 @@ public class MyApplication extends Application {
                 break;
             case refresh_time:
                 if (!TaskExecutor.getInstance().isForcePause()) {
-                    if(TaskExecutor.getInstance().getCurrentTestApp().getPkgName().equals(Constant.PN_FENG_SHENG)){
+                    if (TaskExecutor.getInstance().getCurrentTestApp().getPkgName().equals(Constant.PN_FENG_SHENG)) {
                         setFloatText("定时打卡");
-                    }else {
+                    } else {
                         setFloatText("已执行：" + event.getData());
                     }
                 }
@@ -169,22 +161,22 @@ public class MyApplication extends Application {
                 setFloatText("准备就绪，点我启动");
                 break;
             case task_finish:
-                Log.d(TAG,"当前任务完成");
+                Log.d(TAG, "当前任务完成");
                 AppInfo appInfo = (AppInfo) event.getData();
                 TaskInfo taskInfo1 = SPService.get(SPService.SP_TASK_LIST, TaskInfo.class);
                 List<AppInfo> appInfos = taskInfo1.getAppInfos();
                 Iterator<AppInfo> iterator = appInfos.iterator();
-                while (iterator.hasNext()){
-                    if(iterator.next().getPkgName().equals(appInfo.getPkgName())){
+                while (iterator.hasNext()) {
+                    if (iterator.next().getPkgName().equals(appInfo.getPkgName())) {
                         iterator.remove();
-                        Log.d(TAG,"移除当前任务");
+                        Log.d(TAG, "移除当前任务");
                     }
                 }
                 taskInfo1.setAppInfos(appInfos);
                 SPService.put(SPService.SP_TASK_LIST, taskInfo1);
-                if(!appInfos.isEmpty()){
+                if (!appInfos.isEmpty()) {
                     startTask(appInfos);
-                }else {
+                } else {
                 }
                 break;
         }
@@ -303,7 +295,7 @@ public class MyApplication extends Application {
                     // 服务岗连接上，可以点击快速启动，不需要跳转到捡豆子app去启动
                     isFirstConnectAccessbilityService = false;
                     startTask(taskInfo.getAppInfos());
-                } else if(isStarted) {
+                } else if (isStarted) {
                     // 已启动，则点击会触发暂停
                     if (TaskExecutor.getInstance().isForcePause()) {
                         TaskExecutor.getInstance().setForcePause(false);
